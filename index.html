@@ -16,6 +16,7 @@
             <div class="tab" onclick="showTab('rf')">Random Forest</div>
             <div class="tab" onclick="showTab('naive-bayes')">Naive Bayes</div>
             <div class="tab" onclick="showTab('conclusion-results')">Conclusions</div>
+            <div class="tab" onclick="showTab('links')">Links</div>
         </div>
         
         <div id="introduction" class="tab-content">
@@ -77,7 +78,7 @@
                 <p class="caption">Nighttime view of two wildfires in Southern California, observed by NASA’s ECOSTRESS satellite, showing active fire areas and heatwave effects.</p>
             </div>
         
-            <p>Data mining and analytics play a crucial role in understanding wildfire behavior. By analyzing historical fire data, meteorological conditions, and real-time reports, we can improve fire prediction models and enhance risk management. Predictive modeling techniques such as clustering, classification, and machine learning have helped guide controlled burns and firebreak construction, reducing the risk of uncontrolled fires.</p>
+            <p>Data science and analytics play a crucial role in understanding wildfire behavior. By analyzing historical fire data, meteorological conditions, and real-time reports, we can improve fire prediction models and enhance risk management. Predictive modeling techniques such as clustering, classification, and machine learning have helped guide controlled burns and firebreak construction, reducing the risk of uncontrolled fires.</p>
         
             <div class="image-container">
                 <img src="images/wildfire_image10.png" alt="Controlled burn in South Carolina forest">
@@ -115,7 +116,7 @@
             <p>Open-Meteo is an open-source weather API that provides free access to weather forecasts and historical data without requiring an API key. It offers high-resolution forecasts, ranging from 1 to 11 kilometers, by partnering with national weather services. The API delivers current weather conditions, hourly forecasts for up to 48 hours, daily forecasts for up to 8 days, and historical weather data spanning over 80 years. Open-Meteo's user-friendly JSON API facilitates easy integration into applications, making it a valuable resource for developers and researchers seeking accurate and accessible weather information.             </p>
             <p>By leveraging these APIs, the project effectively combines real-time fire data with detailed weather information, enhancing the analysis and understanding of wildfire patterns and their environmental impacts.            </p>
 
-            <li>NASA Firms API - <a href="https://firms.modaps.eosdis.nasa.gov/api/">https://firms.modaps.eosdis.nasa.gov/api/ hello</a></li>
+            <li>NASA Firms API - <a href="https://firms.modaps.eosdis.nasa.gov/api/">https://firms.modaps.eosdis.nasa.gov/api/</a></li>
 
             <!-- <h3>Weather Data Attributes</h3>
             <p>Most weather variables are given as an instantaneous value for the indicated hour. Some variables,
@@ -506,30 +507,45 @@
                 <img src="images/VIIRS_NOAA21_NR_raw.jpg" alt="VIIRS NOAA21 Satellite Raw Data">
                 <p class="caption">The above screenshots show the raw data collected from multiple satellites, including MODIS and VIIRS.</p>
             </div>
+
+            <p>All the data from the satellites were merged</p>
             <div class="image-container">
                 <img src="images/raw_merged.jpg" alt="Merged Wildfire Raw Dataset">
                 <p class="caption">The merged wildfire raw dataset consists of all wildfires that occurred in the USA from 2000-2024.</p>
             </div>
             
-            <li>Bounding boxes were of all US states were collected from this URL - <a href="https://pathindependence.wordpress.com/2018/11/23/bounding-boxes-for-all-us-states/">https://pathindependence.wordpress.com/2018/11/23/bounding-boxes-for-all-us-states/</a></li>
+            <!-- <li>Bounding boxes were of all US states were collected from this URL - <a href="https://pathindependence.wordpress.com/2018/11/23/bounding-boxes-for-all-us-states/">https://pathindependence.wordpress.com/2018/11/23/bounding-boxes-for-all-us-states/</a></li>
 
-            <p>I used these coordinates to map the latitude and longitude to the respective state</p>
+            <p>I used these coordinates to map the latitude and longitude to the respective state</p> -->
 
-            <p>The column CONFIDENCE has mixed data types. The confidence levels are low(l), nominal(n), and high(h). Only about 15% of the data within the confidence attribute is numeric,
-                so the values were binned into different ranges. Daytime fire pixels with low confidence are linked to sun glint and lower relative temperature anomalies (<15K)
-                   in mid-infrared channel I4. Nominal confidence pixels are those without sun glint and with a temperature anomaly of >15K
-                    in day or nighttime data. Fire pixels with high confidence are associated with day or nighttime saturation.</p>
+            <p>The column ’confidence’ has mixed data types. The confidence
+                levels are low(l), nominal(n), and high(h). Only about
+                15% of the data within the confidence attribute is numeric,
+                so we binned the values into different ranges. Instances with
+                confidence = l were dropped from the training set, as they
+                were likely misclassified due to sun glare or cloud reflection.
+                Daytime fire pixels with low confidence are linked to sun
+                glint and lower relative temperature anomalies (<15K) in
+                mid-infrared channel I4. Nominal confidence pixels are those
+                without sun glint and with a temperature anomaly of >15K
+                in day or nighttime data. Fire pixels with high confidence
+                are associated with day or nighttime saturation</p>
             <div class="image-container">
                 <img src="images\confidence_hist.jpg" alt="Confidence Histogram">
                 <p class="caption">Histogram showing the distribution of confidence levels of satellite wildfire detection.</p>
             </div>
             <div class="image-container">
                 <img src="images\timeandday.jpg" alt="day and night">
-                <p class="caption">Histogram showing the distribution of wildfires based on day and night</p>
+                <p class="caption">Histogram showing the distribution of wildfires based on time of the day</p>
             </div>
+
+            <p>The column ‘type’ has some NA’s - Most of the values
+                within the column are 0. So imputation here is done using
+                Mode.</p>
+
+
             <h2>Geospatial Analysis</h2>
-            <p>The following carousel of density plots depicts the wildfire distribution throught the years of 2000,2005,2010,2015,2020,2024,
-                 respectively in the United States.</p>
+            <p>The following carousel of density plots depicts the wildfire distribution from 2000 to 2024 at 5 year intervals in the United States.</p>
 
             <style>
                     .carousel {
@@ -602,16 +618,14 @@
             </div>
             <div class="image-container">
                 <img src="images\cal_high.jpg" alt="California histogram Plot">
-                <p class="caption">The above histogram shows the wildfire count of the United States from 2000 to present.</p>
+                <p class="caption">The above histogram shows the wildfire count of the United States from 2000 to present</p>
             </div>
             <div class="image-container">
                 <img src="images\dense_plot_cal.jpg" alt="Wildfire Density Plot">
-                <p class="caption">Density Plot of wildfires in California in the year 2024, with a high concentration in Southern
-                     California.</p>
+                <p class="caption">Density Plot of wildfires in California in the year 2024, with a high concentration in Southern California</p>
             </div>
-            <p>California has got the most wildfires which accounts to almost one-eigth of 
-                the total wildfires of the United States.
-            </p>
+            <p>California encountered the most wildfires and accounts for almost one-eigth of the total wildfires of the United States</p>
+            
             <div class="image-container">
                 <img src="images\month.jpg" alt="Month Frequency Plot">
                 <p class="caption">Frequency Plot of wildfires in California.</p>
@@ -651,8 +665,8 @@
             
             <h2>Weather Data Collection</h2>
             <p>Open-Meteo weather API was used to gather weather data. It is an open-source weather API which 
-                provides hourly weather data. The API has a daily limit of 10000 data was restricted
-                only Southern California from 2020. Weather data was fetched for respective latitude and longitudes.</p>
+                provides hourly weather data. Since the API has a daily limit of 10000 calls, the analysis was restricted
+                to only Southern California from 2020 and the weather data was fetched for respective latitude and longitudes.</p>
             <p>The weather dataset contains the following attributes:</p>     
             <div class="image-container">
                     <img src="images\training.jpg" alt="Attribute Details">
@@ -677,7 +691,7 @@
                      variable when it comes to wildfires.</p>
             </div>   
             <div class="image-container">
-                <img src="images\heatmap.jpg" alt="Temperature heatmap Plot">
+                <img src="images\heatmap.png" alt="Temperature heatmap Plot">
                 <p class="caption">Correlation heatmap of weather and fire variables.</p>
             </div>
             <div class="image-container">
@@ -721,55 +735,61 @@
             </style>
             <div class="qa-container">
                 <div class="question">Q:How was the target variable "Fire" or "No Fire" created?</div>
-                <div class="answer">A: By integrating wildfire data with weather data based on latitude, longitude and date, we identified occurrences of
-                     wildfires with a target label of 1. The rows that remained unmerged correspond to instances
+                <div class="answer">A: By merging wildfire data with weather data on latitude, longitude and date, wildfires occurrences
+                    with a target label of 1 were identified. The rows that remained unmerged are instances
                       where wildfires did not occur. To achieve a balanced
-                       dataset, we quantified the positive class labels from 2020 to 2024 and subsequently conducted a random 
-                       sampling of an equivalent number of data points from the unmatched dataset. This produced an equal
+                       dataset, the positive class labels from 2020 to 2024 were quantified and subsequently random 
+                       sampling was conducted on an equivalent number of data points from the unmatched dataset. This produced an equal
                         quantity of positive and negative class labels, with 56,948 instances for each. The data set comprises
                          a total of 113,896 rows.</div>
             </div>
 
             <h2>Training Dataset</h2>
             <p>The training dataset for our wildfire prediction model combines weather data from a weather API and satellite data from NASA's API. The dataset has features such as temperature, humidity, wind speed, and cloud cover. The target variable is "fire", where a value of 1 indicates the occurrence of a wildfire, and 0 indicates no wildfire.</p>
-                 <p>The following image gives us a detailed description of all the attributes used:</p>
+                 <p>The following image shows the all of the features</p>
                  <div class="collage">
-                    <img src="images/attr_1.jpg" alt="Image 1">
-                    <img src="images/attr_2.jpg" alt="Image 2">
-                    <img src="images/attr_3.jpg" alt="Image 3">
-                    <img src="images/attr_4.jpg" alt="Image 4">
+                    <div class="image-item">
+                        <img src="images/attr_1.jpg" alt="Image 1">
+                    </div>
+                    <div class="image-item">
+                        <img src="images/attr_2.jpg" alt="Image 2">
+                    </div>
+                    <div class="image-item">
+                        <img src="images/attr_3.jpg" alt="Image 3">
+                    </div>
+                    <div class="image-item">
+                        <img src="images/attr_4.jpg" alt="Image 4">
+                    </div>
                 </div>
+
+            <p>The dataset will be normalized for the training process using techniques like standardScaler</p>
         </div>
                 
         <style>
-            #conclusion-results {
-                font-size: 1.2rem; /* Slightly smaller font size for general content */
-                line-height: 1.6; /* Maintains readability with balanced line spacing */
-                padding: 20px; /* Adds spacing around the content */
+            .collage {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* 2 columns */
+                gap: 32px; /* increased space between images */
             }
-            #conclusion-results h1 {
-                font-size: 2rem; /* Adjusts font size for main headings */
-                margin-bottom: 20px;
-            }
-            #conclusion-results h2 {
-                font-size: 1.6rem; /* Adjusts font size for subheadings */
-                margin-top: 20px;
-            }
-            #conclusion-results p {
-                margin-bottom: 15px; /* Spacing below paragraphs */
-            }
-            #conclusion-results ul {
-                margin: 15px 0;
-                padding-left: 30px; /* Slightly reduces indentation for list items */
-            }
-            #conclusion-results ul li {
-                font-size: 1.2rem; /* Ensures list items are proportionate */
-                margin-bottom: 8px;
+        
+            .image-item img {
+                width: 100%; /* makes images fill the available space */
+                max-width: 500px; /* increases image size */
+                height: auto;
+                border-radius: 8px; /* optional, to round the corners of images */
             }
         </style>
-        
+                
         <div id="conclusion-results" class="tab-content">
             <p>No content for Assignment 1</p>
+        </div>
+
+        <div id="links" class="tab-content">
+            <p>
+                <img src="images/abhiram.jpeg" alt="Abhiram's photo">
+                <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank">LinkedIn</a> | 
+                <a href="https://github.com/ABHIRAM1234" target="_blank">GitHub Link for Project</a>
+            </p>
         </div>
                 
     </div>
