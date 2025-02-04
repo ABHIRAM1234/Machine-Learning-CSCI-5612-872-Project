@@ -664,12 +664,17 @@
             </style>
             
             <h2>Weather Data Collection</h2>
+            <li>NASA Firms API - <a href="https://open-meteo.com/en/docs">https://open-meteo.com/en/docs</a></li>
             <p>Open-Meteo weather API was used to gather weather data. It is an open-source weather API which 
                 provides hourly weather data. Since the API has a daily limit of 10000 calls, the analysis was restricted
                 to only Southern California from 2020 and the weather data was fetched for respective latitude and longitudes.</p>
             <p>The weather dataset contains the following attributes:</p>     
             <div class="image-container">
                     <img src="images\training.jpg" alt="Attribute Details">
+            </div>
+            <p>Below is the raw weather data</p>     
+            <div class="image-container">
+                <img src="images\weather_data_raw.png" alt="Weather raw">
             </div>
 
             <h2>Weather Data EDA</h2>
@@ -746,7 +751,7 @@
 
             <h2>Training Dataset</h2>
             <p>The training dataset for our wildfire prediction model combines weather data from a weather API and satellite data from NASA's API. The dataset has features such as temperature, humidity, wind speed, and cloud cover. The target variable is "fire", where a value of 1 indicates the occurrence of a wildfire, and 0 indicates no wildfire.</p>
-                 <p>The following image shows the all of the features</p>
+                 <p>Below is the final dataset after merging satellite and weather data</p>
                  <div class="collage">
                     <div class="image-item">
                         <img src="images/attr_1.jpg" alt="Image 1">
