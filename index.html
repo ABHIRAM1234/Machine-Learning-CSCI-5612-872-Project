@@ -771,6 +771,10 @@
                 </div>
 
             <p>The dataset will be normalized for the training process using techniques like standardScaler</p>
+
+            <h3>Code</h3>
+            <p>Full code to Data Prep/EDA on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Data%20Cleaning%20EDA%20and%20Integration" target="_blank">View Code</a></p>
+
         </div>
         
         <div id="pca" class="tab-content">
@@ -779,7 +783,7 @@
             
             <h3>PCA in This Project</h3>
             <p>PCA was applied to a wildfire dataset to analyze high-dimensional features and reduce complexity while retaining critical variance. The goal was to visualize patterns and determine how many dimensions are necessary to capture meaningful information. The dataset contains multiple features related to environmental and fire risk factors.</p>
-        
+                
             <div class="image-container">
                 <div class="collage">
                     <div class="image-item">
@@ -796,7 +800,7 @@
         
             <h3>Data Preprocessing</h3>
             <p>The target variable <code>"fire"</code> was removed before applying PCA to ensure only quantitative data was considered. The dataset was then normalized using <code>Sklearn’s StandardScaler</code>, which is necessary because PCA is sensitive to scale—features with larger numerical ranges could dominate smaller ones.</p>
-        
+                
             <div class="image-container">
                 <img src="screenshots/normalized_data.png" alt="Normalized Data Sample">
                 <p class="caption">Standardized data after normalization.</p>
@@ -804,7 +808,7 @@
         
             <h3>PCA Implementation</h3>
             <p>PCA was conducted with <code>n_components=2</code> and <code>n_components=3</code> to visualize data in two and three dimensions, respectively.</p>
-        
+                
             <div class="image-container">
                 <img src="screenshots/2d_pca.png" alt="2D PCA Visualization">
                 <p class="caption">2D projection of the dataset using PCA.</p>
@@ -818,20 +822,20 @@
             <h3>Variance Retention</h3>
             <p>The percentage of variance retained by different principal components:</p>
             <ul>
-                <li><strong>2D PCA:</strong> <span id="variance-2d">37.07%</span> of total variance.</li>
+                <li><strong>2D PCA:</strong> 37.07% of total variance.</li>
                 <p>Reducing the dataset to two principal components retains <strong>37.07%</strong> of its variance, meaning <strong>62.93%</strong> of the original variability is lost.</p>
-                <li><strong>3D PCA:</strong> <span id="variance-3d">47.44%</span> of total variance.</li>
+                <li><strong>3D PCA:</strong> 47.44% of total variance.</li>
                 <p>Using three principal components captures <strong>47.44%</strong> of the total variance, reducing information loss compared to the 2D version.</p>
             </ul>
-        
+                
             <div class="image-container">
                 <img src="screenshots/variance_explained.png" alt="Variance Explained Graph">
                 <p class="caption">Cumulative variance retained for increasing principal components.</p>
             </div>
         
             <h3>Optimal Dimensionality</h3>
-            <p>To retain at least <strong>95% variance</strong>, a minimum of <strong><span id="num-components">17</span></strong> dimensions is required. The cumulative variance plot below shows how variance increases with the number of components.</p>
-        
+            <p>To retain at least <strong>95% variance</strong>, a minimum of <strong>17</strong> dimensions is required. The cumulative variance plot below shows how variance increases with the number of components.</p>
+                
             <div class="image-container">
                 <img src="screenshots/cumulative_variance.png" alt="Cumulative Variance Plot">
                 <p class="caption">Cumulative variance across different principal components.</p>
@@ -844,7 +848,7 @@
                 <li><strong>Eigenvalue 2:</strong> 4.316</li>
                 <li><strong>Eigenvalue 3:</strong> 3.110</li>
             </ul>
-        
+                
             <div class="image-container">
                 <img src="screenshots/eigenvalues.png" alt="Eigenvalues Output">
                 <p class="caption">Top three eigenvalues from PCA analysis.</p>
@@ -855,15 +859,17 @@
             <ul>
                 <li>Reducing the dataset to <b>2D</b> retains <b>37.07%</b> variance, but loses a significant amount of information.</li>
                 <li>Using <b>3D</b> increases the retained variance to <b>47.44%</b>, but higher dimensions may still be required.</li>
-                <li>To retain at least <b>95% of the variance, <b>17 principal components</b> are needed.</li>
+                <li>To retain at least <b>95% of the variance</b>, <b>17 principal components</b> are needed.</li>
             </ul>
             <p>By optimizing the number of dimensions, PCA ensures computational efficiency while preserving meaningful patterns, making it a valuable tool for dimensionality reduction in machine learning and data analysis.</p>
+            
             <h3>Code</h3>
-            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/PCA.ipynb" target="_blank">View Code</a></p>
+            <p>Full code to PCA on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/PCA.ipynb" target="_blank">View Code</a></p>
 
         </div>
         
         <div id="clustering" class="tab-content">
+            <p>Clustering is an unsupervised learning technique used to group similar data points together. This section compares three popular clustering algorithms: K-Means, Hierarchical Clustering, and DBSCAN.</p>
             <h2>Comparison of Clustering Algorithms</h2>
             <table border="1" cellpadding="8" cellspacing="0">
                 <tr>
@@ -874,32 +880,32 @@
                 </tr>
                 <tr>
                     <td><strong>K-Means</strong></td>
-                    <td>Partitions data into k clusters by minimizing intra-cluster variance.</td>
-                    <td>Works well for spherical clusters, fast, scalable.</td>
-                    <td>Needs predefined k, sensitive to outliers.</td>
+                    <td>Partitions data into <strong>k</strong> clusters by minimizing intra-cluster variance.</td>
+                    <td>Works well for <strong>spherical clusters</strong>, fast, scalable.</td>
+                    <td>Needs predefined <strong>k</strong>, sensitive to outliers, struggles with non-spherical clusters.</td>
                 </tr>
                 <tr>
                     <td><strong>Hierarchical</strong></td>
                     <td>Creates a tree of clusters using agglomerative or divisive methods.</td>
-                    <td>No need to predefine k, produces dendrograms.</td>
-                    <td>Computationally expensive for large datasets.</td>
+                    <td>No need to predefine <strong>k</strong>, produces dendrograms for visual analysis.</td>
+                    <td>Computationally expensive for large datasets, best for smaller datasets.</td>
                 </tr>
                 <tr>
                     <td><strong>DBSCAN</strong></td>
                     <td>Groups points based on density and identifies outliers as noise.</td>
-                    <td>Finds arbitrarily shaped clusters, robust to noise.</td>
-                    <td>Struggles with varying densities, sensitive to hyperparameters.</td>
+                    <td>Finds <strong>arbitrarily shaped clusters</strong>, robust to noise and outliers.</td>
+                    <td>Struggles with varying densities, sensitive to <strong>eps</strong> and <strong>min_samples</strong> selection.</td>
                 </tr>
             </table>
-        
+                
             <h3>Dataset Preparation</h3>
-            <p>The dataset used for clustering analysis consists of <strong>113,896 rows × 31 columns</strong>. The preprocessing steps included:</p>
+            <p>The dataset used for clustering consists of <strong>113,896 rows × 31 columns</strong>. The preprocessing steps included:</p>
             <ul>
                 <li>Removing non-numeric columns (e.g., date, time).</li>
                 <li>Separating labels from features.</li>
                 <li>Normalizing using <code>StandardScaler</code> (mean = 0, stddev = 1).</li>
             </ul>
-        
+                
             <div class="image-container">
                 <img src="screenshots/dataset.png" alt="Raw Dataset">
                 <p class="caption">Raw dataset before preprocessing.</p>
@@ -913,15 +919,15 @@
             <h3>PCA Dimensionality Reduction</h3>
             <p>To improve clustering visualization, PCA was applied to reduce data to 3 dimensions.</p>
             <p><strong>Variance retained after PCA:</strong> <span id="variance-pca">47.44%</span></p>
-        
+                
             <div class="image-container">
                 <img src="screenshots/variance_pca_3d.png" alt="PCA Variance Retention">
                 <p class="caption">Cumulative variance retained after PCA.</p>
             </div>
         
             <h3>K-Means Clustering</h3>
-            <p>Silhouette scores were used to determine optimal k values.</p>
-        
+            <p>Silhouette scores were used to determine optimal <strong>k</strong> values.</p>
+                
             <h4>Selected K values:</h4>
             <ul>
                 <li><strong>k = 4</strong></li>
@@ -946,14 +952,13 @@
         
             <h3>Hierarchical Clustering</h3>
             <p>A dendrogram was generated using Ward’s method to determine the optimal number of clusters.</p>
-        
-            <h4>Choosing `n_clusters` from Dendrogram</h4>
+            <p><strong>Choosing <strong>n_clusters</strong> from the Dendrogram:</strong></p>
             <ul>
-                <li>The longest vertical lines represent major cluster separations.</li>
+                <li>The longest vertical lines in the dendrogram represent major cluster separations.</li>
                 <li>A horizontal cut was made at approximately <strong>distance 250-300</strong> before the largest merges.</li>
                 <li>The cut intersected <strong>three major vertical branches</strong>, leading to <strong>n_clusters = 3</strong>.</li>
             </ul>
-        
+                
             <div class="image-container">
                 <img src="screenshots/dendrogram.png" alt="Dendrogram">
                 <p class="caption">Hierarchical clustering dendrogram with the chosen cut-off.</p>
@@ -966,14 +971,14 @@
         
             <h3>DBSCAN Clustering</h3>
             <p>DBSCAN was applied to detect clusters and outliers.</p>
-        
-            <h4>Choosing `eps` using K-Distance Plot</h4>
+            <p><strong>Choosing <strong>eps</strong> using K-Distance Plot:</strong></p>
             <ul>
                 <li>The <strong>k-distance plot</strong> was generated using <code>min_samples = 15</code> (as dataset size > 100,000).</li>
-                <li>The "elbow point" in the graph was found at <strong>eps ≈ 0.319</strong>.</li>
+                <li>The "elbow point" in the graph represents the distance where the clustering structure changes significantly.</li>
+                <li>The elbow point was found at <strong>eps ≈ 0.319</strong>.</li>
                 <li>To allow stable clustering, <strong>eps was increased by 10%</strong> to <strong>0.351</strong>.</li>
             </ul>
-        
+                
             <div class="image-container">
                 <img src="screenshots/k_distance_plot.png" alt="K-Distance Plot">
                 <p class="caption">k-Distance plot used to determine the best eps for DBSCAN.</p>
@@ -1008,7 +1013,7 @@
                 </tr>
                 <tr>
                     <td><strong>DBSCAN</strong></td>
-                    <td>87</td>
+                    <td>10</td>
                     <td>Yes</td>
                     <td>No</td>
                 </tr>
@@ -1017,27 +1022,82 @@
             <h3>Conclusion</h3>
             <p>The results of clustering methods varied based on the dataset characteristics:</p>
             <ul>
-                <li><strong>K-Means:</strong> Provided well-defined clusters but required choosing k in advance.</li>
+                <li><strong>K-Means:</strong> Provided well-defined clusters but required choosing <strong>k</strong> in advance.</li>
                 <li><strong>Hierarchical Clustering:</strong> Allowed better data structure visualization but was computationally expensive.</li>
                 <li><strong>DBSCAN:</strong> Effectively detected outliers but was sensitive to parameter tuning.</li>
             </ul>
-        
+                
             <h3>Code</h3>
-            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/clustering.ipynb" target="_blank">View Code</a></p>
+            <p>Full code to Clustering on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/clustering.ipynb" target="_blank">View Code</a></p>
         </div>
                     
         </div>
     
         <div id="arm" class="tab-content">
-            <p>Association Rule Mining (ARM) is used to identify relationships between items in a dataset. Key metrics:</p>
+            <h2>Association Rule Mining (ARM)</h2>
+            <p><strong>Association Rule Mining (ARM)</strong> is a data mining technique used to discover interesting relationships between items in large datasets. It is widely used in market basket analysis, recommendation systems, and various fields where relationships between data points are valuable.</p>
+            
+            <h3>Key Metrics in ARM</h3>
             <ul>
-                <li><strong>Support:</strong> Frequency of an itemset.</li>
-                <li><strong>Confidence:</strong> Likelihood of the consequent given the antecedent.</li>
-                <li><strong>Lift:</strong> Strength of association.</li>
+                <li><strong>Support:</strong> The frequency of an itemset appearing in the dataset.</li>
+                <li><strong>Confidence:</strong> The likelihood that the consequent occurs given the antecedent.</li>
+                <li><strong>Lift:</strong> The strength of association, measuring how much more likely items co-occur compared to random chance.</li>
             </ul>
-            <p>The <strong>Apriori algorithm</strong> generates candidate itemsets and prunes them based on minimum support.</p>
+            
+            <h3>Apriori Algorithm and FP-Growth</h3>
+            <p>The <strong>Apriori algorithm</strong> generates frequent itemsets and prunes them based on minimum support. However, it can be computationally expensive for large datasets. To improve efficiency, the <strong>FP-Growth algorithm</strong> is used in this project because it compresses transactions into an FP-tree, making it significantly faster than Apriori for large datasets.</p>
+            
+            <div class="image-container">
+                <img src="screenshots/arm_example.png" alt="ARM Example">
+                <p class="caption">Illustration of association rules in a dataset.</p>
+            </div>
+        
+            <h3>Data Preparation</h3>
+            <p>ARM requires only <strong>unlabeled transactional data</strong>. In this project, the dataset was formatted into a binary transaction format, where each row represents a set of items purchased together or occurring together in an event.</p>
+            
+            <div class="image-container">
+                <img src="screenshots/transaction_data.png" alt="Transaction Data Sample">
+                <p class="caption">Example of transformed transaction data.</p>
+            </div>
+            
+            <p>Access the dataset here: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Datasets/transaction_data.csv" target="_blank">Transaction Data</a>.</p>
+            
+            <h3>ARM Implementation</h3>
+            <p>The FP-Growth algorithm was applied using <code>mlxtend</code> in Python to extract frequent itemsets and generate association rules.</p>
+            
+            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/ARM.ipynb" target="_blank">View Code</a></p>
+            
+            <h3>Results</h3>
+            <p>Top 15 rules were ranked based on <strong>support</strong>, <strong>confidence</strong>, and <strong>lift</strong>. The following thresholds were used:</p>
+            <ul>
+                <li><strong>Minimum Support:</strong> 0.005</li>
+                <li><strong>Minimum Confidence:</strong> 0.2</li>
+                <li><strong>Minimum Lift:</strong> 1.5</li>
+            </ul>
+        
+            <div class="image-container">
+                <img src="screenshots/top_rules.png" alt="Top ARM Rules">
+                <p class="caption">Top 15 association rules based on support, confidence, and lift.</p>
+            </div>
+            
+            <h3>Network Visualization</h3>
+            <p>The relationships between items were visualized using a network graph. This helps identify key associations between frequently occurring items.</p>
+            
+            <div class="image-container">
+                <img src="screenshots/arm_network.png" alt="Association Rule Network">
+                <p class="caption">Network visualization of strong association rules.</p>
+            </div>
+            
+            <h3>Conclusion</h3>
+            <p>Association Rule Mining provided valuable insights into item relationships in the dataset. Key findings include:</p>
+            <ul>
+                <li>High support rules indicate common co-occurrences.</li>
+                <li>Confidence shows the reliability of associations.</li>
+                <li>Lift values higher than 1.5 indicate strong positive associations.</li>
+            </ul>
+            <p>By applying FP-Growth instead of Apriori, rule generation was significantly faster, making it suitable for large datasets.</p>
         </div>
-    
+            
                 
         <style>
             .collage {
