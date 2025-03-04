@@ -858,6 +858,9 @@
                 <li>To retain at least <b>95% of the variance, <b>17 principal components</b> are needed.</li>
             </ul>
             <p>By optimizing the number of dimensions, PCA ensures computational efficiency while preserving meaningful patterns, making it a valuable tool for dimensionality reduction in machine learning and data analysis.</p>
+            <h3>Code</h3>
+            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/PCA.ipynb" target="_blank">View Code</a></p>
+
         </div>
         
         <div id="clustering" class="tab-content">
@@ -890,18 +893,18 @@
             </table>
         
             <h3>Dataset Preparation</h3>
-            <p>The dataset used for clustering analysis is <code>training_df.csv</code>. The preprocessing steps included:</p>
+            <p>The dataset used for clustering analysis consists of <strong>113,896 rows × 31 columns</strong>. The preprocessing steps included:</p>
             <ul>
                 <li>Removing non-numeric columns (e.g., date, time).</li>
                 <li>Separating labels from features.</li>
                 <li>Normalizing using <code>StandardScaler</code> (mean = 0, stddev = 1).</li>
             </ul>
-            
+        
             <div class="image-container">
-                <img src="screenshots/raw_data.png" alt="Raw Dataset">
+                <img src="screenshots/dataset.png" alt="Raw Dataset">
                 <p class="caption">Raw dataset before preprocessing.</p>
             </div>
-            
+        
             <div class="image-container">
                 <img src="screenshots/normalized_data.png" alt="Normalized Dataset">
                 <p class="caption">Normalized dataset after preprocessing.</p>
@@ -910,7 +913,7 @@
             <h3>PCA Dimensionality Reduction</h3>
             <p>To improve clustering visualization, PCA was applied to reduce data to 3 dimensions.</p>
             <p><strong>Variance retained after PCA:</strong> <span id="variance-pca">47.44%</span></p>
-            
+        
             <div class="image-container">
                 <img src="screenshots/variance_pca_3d.png" alt="PCA Variance Retention">
                 <p class="caption">Cumulative variance retained after PCA.</p>
@@ -918,11 +921,6 @@
         
             <h3>K-Means Clustering</h3>
             <p>Silhouette scores were used to determine optimal k values.</p>
-            
-            <div class="image-container">
-                <img src="screenshots/silhouette_scores.png" alt="Silhouette Scores">
-                <p class="caption">Silhouette scores for different values of k.</p>
-            </div>
         
             <h4>Selected K values:</h4>
             <ul>
@@ -930,41 +928,62 @@
                 <li><strong>k = 5</strong></li>
                 <li><strong>k = 6</strong></li>
             </ul>
-            
+        
             <div class="image-container">
                 <img src="screenshots/clustering_k=4.png" alt="K-Means Clustering">
-                <p class="caption">K-Means clustering result for k=4.</p>
+                <p class="caption">K-Means clustering result for k=4. Silhouette Score = 0.3207</p>
             </div>
         
             <div class="image-container">
                 <img src="screenshots/clustering_k=5.png" alt="K-Means Clustering">
-                <p class="caption">K-Means clustering result for k=5.</p>
+                <p class="caption">K-Means clustering result for k=5. Silhouette Score = 0.3153</p>
             </div>
-
+        
             <div class="image-container">
                 <img src="screenshots/clustering_k=6.png" alt="K-Means Clustering">
-                <p class="caption">K-Means clustering result for k=6.</p>
+                <p class="caption">K-Means clustering result for k=6. Silhouette Score = 0.3328</p>
             </div>
         
             <h3>Hierarchical Clustering</h3>
-            <p>A dendrogram was generated using Ward’s method.</p>
+            <p>A dendrogram was generated using Ward’s method to determine the optimal number of clusters.</p>
+        
+            <h4>Choosing `n_clusters` from Dendrogram</h4>
+            <ul>
+                <li>The longest vertical lines represent major cluster separations.</li>
+                <li>A horizontal cut was made at approximately <strong>distance 250-300</strong> before the largest merges.</li>
+                <li>The cut intersected <strong>three major vertical branches</strong>, leading to <strong>n_clusters = 3</strong>.</li>
+            </ul>
         
             <div class="image-container">
                 <img src="screenshots/dendrogram.png" alt="Dendrogram">
-                <p class="caption">Hierarchical clustering dendrogram.</p>
+                <p class="caption">Hierarchical clustering dendrogram with the chosen cut-off.</p>
             </div>
         
             <div class="image-container">
                 <img src="screenshots/hierarchical_clusters.png" alt="Hierarchical Clustering">
-                <p class="caption">Hierarchical clustering results.</p>
+                <p class="caption">Hierarchical clustering results for n_clusters = 3.</p>
             </div>
         
             <h3>DBSCAN Clustering</h3>
             <p>DBSCAN was applied to detect clusters and outliers.</p>
         
+            <h4>Choosing `eps` using K-Distance Plot</h4>
+            <ul>
+                <li>The <strong>k-distance plot</strong> was generated using <code>min_samples = 15</code> (as dataset size > 100,000).</li>
+                <li>The "elbow point" in the graph was found at <strong>eps ≈ 0.319</strong>.</li>
+                <li>To allow stable clustering, <strong>eps was increased by 10%</strong> to <strong>0.351</strong>.</li>
+            </ul>
+        
             <div class="image-container">
-                <img src="screenshots/dbscan.png" alt="DBSCAN Clustering">
-                <p class="caption">DBSCAN clustering result.</p>
+                <img src="screenshots/k_distance_plot.png" alt="K-Distance Plot">
+                <p class="caption">k-Distance plot used to determine the best eps for DBSCAN.</p>
+            </div>
+        
+            <div class="image-container">
+                <img src="screenshots/dbscan_output_1.png" alt="DBSCAN Clustering">
+                <p class="caption">DBSCAN clustering result with estimated eps = 0.753.</p>
+                <img src="screenshots/dbscan_output_2.png" alt="DBSCAN Clustering">
+                <p class="caption">DBSCAN clustering plot</p>
             </div>
         
             <h3>Comparison of Clustering Methods</h3>
@@ -977,19 +996,19 @@
                 </tr>
                 <tr>
                     <td><strong>K-Means</strong></td>
-                    <td>X</td>
+                    <td>6</td>
                     <td>No</td>
                     <td>Yes</td>
                 </tr>
                 <tr>
                     <td><strong>Hierarchical</strong></td>
-                    <td>X</td>
+                    <td>3</td>
                     <td>No</td>
                     <td>No</td>
                 </tr>
                 <tr>
                     <td><strong>DBSCAN</strong></td>
-                    <td>X</td>
+                    <td>87</td>
                     <td>Yes</td>
                     <td>No</td>
                 </tr>
@@ -1002,12 +1021,11 @@
                 <li><strong>Hierarchical Clustering:</strong> Allowed better data structure visualization but was computationally expensive.</li>
                 <li><strong>DBSCAN:</strong> Effectively detected outliers but was sensitive to parameter tuning.</li>
             </ul>
-            <p>Ultimately, the best method depends on the specific needs of the dataset and application.</p>
         
-            <h3>Code & Resources</h3>
-            <p>Full code is available on GitHub: <a href="https://github.com/your-repo/clustering-analysis" target="_blank">View Code</a></p>
+            <h3>Code</h3>
+            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/clustering.ipynb" target="_blank">View Code</a></p>
         </div>
-            
+                    
         </div>
     
         <div id="arm" class="tab-content">
