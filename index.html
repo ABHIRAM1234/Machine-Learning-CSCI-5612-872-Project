@@ -870,6 +870,16 @@
         
         <div id="clustering" class="tab-content">
             <p>Clustering is an unsupervised learning technique used to group similar data points together. This section compares three popular clustering algorithms: K-Means, Hierarchical Clustering, and DBSCAN.</p>
+            
+            <h3>Understanding Distance Metrics</h3>
+            <p>Distance metrics play a crucial role in clustering by determining the similarity between data points. The choice of metric significantly impacts the clustering results:</p>
+            <ul>
+                <li><strong>Euclidean Distance:</strong> The most common metric, used in K-Means, measuring straight-line distance between two points.</li>
+                <li><strong>Manhattan Distance:</strong> Measures distance along axes at right angles, useful for high-dimensional spaces.</li>
+                <li><strong>Cosine Similarity:</strong> Used in Hierarchical clustering, evaluates the angle between vectors rather than distance.</li>
+                <li><strong>Density-Based Distance:</strong> Applied in DBSCAN, where clusters are identified based on density variations.</li>
+            </ul>
+        
             <h2>Comparison of Clustering Algorithms</h2>
             <table border="1" cellpadding="8" cellspacing="0">
                 <tr>
@@ -1018,6 +1028,14 @@
                     <td>No</td>
                 </tr>
             </table>
+            
+            <h3>How Clustering is Used in This Project</h3>
+            <p>Clustering was applied to segment weather and environmental data for wildfire prediction. The clustering methods allowed for identifying:</p>
+            <ul>
+                <li>Distinct weather patterns that correlate with fire occurrences.</li>
+                <li>Outlier regions that exhibit extreme conditions conducive to wildfires.</li>
+                <li>Similar environmental conditions that may help in future predictive modeling.</li>
+            </ul>
         
             <h3>Conclusion</h3>
             <p>The results of clustering methods varied based on the dataset characteristics:</p>
@@ -1104,7 +1122,7 @@
             </ul>
             <p>By applying FP-Growth instead of Apriori, rule generation was significantly faster, making it suitable for large datasets.</p>
         </div>
-                
+
         <style>
             .collage {
                 display: grid;
