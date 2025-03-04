@@ -1046,17 +1046,16 @@
             
             <h3>Apriori Algorithm and FP-Growth</h3>
             <p>The <strong>Apriori algorithm</strong> generates frequent itemsets and prunes them based on minimum support. However, it can be computationally expensive for large datasets. To improve efficiency, the <strong>FP-Growth algorithm</strong> is used in this project because it compresses transactions into an FP-tree, making it significantly faster than Apriori for large datasets.</p>
-            
-            <div class="image-container">
-                <img src="screenshots/arm_example.png" alt="ARM Example">
-                <p class="caption">Illustration of association rules in a dataset.</p>
-            </div>
-        
+                    
             <h3>Data Preparation</h3>
             <p>ARM requires only <strong>unlabeled transactional data</strong>. In this project, the dataset was formatted into a binary transaction format, where each row represents a set of items purchased together or occurring together in an event.</p>
             
             <div class="image-container">
-                <img src="screenshots/transaction_data.png" alt="Transaction Data Sample">
+                <img src="screenshots/dataset.png" alt="Raw Transaction Data">
+                <p class="caption">Raw data before transformation.</p>
+            </div>
+            <div class="image-container">
+                <img src="screenshots/processed_transaction_data.png" alt="Processed Transaction Data">
                 <p class="caption">Example of transformed transaction data.</p>
             </div>
             
@@ -1076,8 +1075,16 @@
             </ul>
         
             <div class="image-container">
-                <img src="screenshots/top_rules.png" alt="Top ARM Rules">
-                <p class="caption">Top 15 association rules based on support, confidence, and lift.</p>
+                <img src="screenshots/top_support_rules.png" alt="Top Support Rules">
+                <p class="caption">Top 15 association rules based on support.</p>
+            </div>
+            <div class="image-container">
+                <img src="screenshots/top_confidence_rules.png" alt="Top Confidence Rules">
+                <p class="caption">Top 15 association rules based on confidence.</p>
+            </div>
+            <div class="image-container">
+                <img src="screenshots/top_lift_rules.png" alt="Top Lift Rules">
+                <p class="caption">Top 15 association rules based on lift.</p>
             </div>
             
             <h3>Network Visualization</h3>
@@ -1097,7 +1104,6 @@
             </ul>
             <p>By applying FP-Growth instead of Apriori, rule generation was significantly faster, making it suitable for large datasets.</p>
         </div>
-            
                 
         <style>
             .collage {
