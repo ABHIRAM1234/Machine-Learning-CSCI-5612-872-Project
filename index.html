@@ -11,6 +11,9 @@
         <div class="tabs">
             <div class="tab" onclick="showTab('introduction')">Introduction</div>
             <div class="tab" onclick="showTab('data-prep-eda')">Data Prep/EDA</div>
+            <div class="tab" onclick="showTab('pca')">PCA</div>
+            <div class="tab" onclick="showTab('clustering')">Clustering</div>
+            <div class="tab" onclick="showTab('arm')">ARM</div>
             <div class="tab" onclick="showTab('svm')">Support Vector Machine</div>
             <div class="tab" onclick="showTab('dt')">Decision Tree</div>
             <div class="tab" onclick="showTab('rf')">Random Forest</div>
@@ -769,6 +772,254 @@
 
             <p>The dataset will be normalized for the training process using techniques like standardScaler</p>
         </div>
+        
+        <div id="pca" class="tab-content">
+            <h2>Principal Component Analysis (PCA)</h2>
+            <p><strong>Principal Component Analysis (PCA)</strong> is a powerful statistical technique used for <em>dimensionality reduction</em> while preserving the most significant variance in a dataset. It transforms high-dimensional data into a smaller set of principal components—orthogonal directions capturing the highest variance. PCA enhances data visualization, reduces complexity, and improves computational efficiency by leveraging <em>eigenvalue decomposition</em> of the covariance matrix or <em>Singular Value Decomposition (SVD)</em>.</p>
+            
+            <h3>PCA in This Project</h3>
+            <p>PCA was applied to a wildfire dataset to analyze high-dimensional features and reduce complexity while retaining critical variance. The goal was to visualize patterns and determine how many dimensions are necessary to capture meaningful information. The dataset contains multiple features related to environmental and fire risk factors.</p>
+        
+            <div class="image-container">
+                <div class="collage">
+                    <div class="image-item">
+                        <img src="screenshots/dataset.png" alt="Dataset Overview">
+                    </div>
+                    <div class="image-item">
+                        <img src="screenshots/dataset_columns.png" alt="Dataset Columns">
+                    </div>
+                </div>
+                <p class="caption">Dataset used for PCA analysis.</p>
+            </div>
+        
+            <p>Access the dataset here: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Datasets/training_df.csv" target="_blank">Data</a>.</p>
+        
+            <h3>Data Preprocessing</h3>
+            <p>The target variable <code>"fire"</code> was removed before applying PCA to ensure only quantitative data was considered. The dataset was then normalized using <code>Sklearn’s StandardScaler</code>, which is necessary because PCA is sensitive to scale—features with larger numerical ranges could dominate smaller ones.</p>
+        
+            <div class="image-container">
+                <img src="screenshots/normalized_data.png" alt="Normalized Data Sample">
+                <p class="caption">Standardized data after normalization.</p>
+            </div>
+        
+            <h3>PCA Implementation</h3>
+            <p>PCA was conducted with <code>n_components=2</code> and <code>n_components=3</code> to visualize data in two and three dimensions, respectively.</p>
+        
+            <div class="image-container">
+                <img src="screenshots/2d_pca.png" alt="2D PCA Visualization">
+                <p class="caption">2D projection of the dataset using PCA.</p>
+            </div>
+        
+            <div class="image-container">
+                <img src="screenshots/3d_pca.png" alt="3D PCA Visualization">
+                <p class="caption">3D projection of the dataset using PCA.</p>
+            </div>
+        
+            <h3>Variance Retention</h3>
+            <p>The percentage of variance retained by different principal components:</p>
+            <ul>
+                <li><strong>2D PCA:</strong> <span id="variance-2d">37.07%</span> of total variance.</li>
+                <p>Reducing the dataset to two principal components retains <strong>37.07%</strong> of its variance, meaning <strong>62.93%</strong> of the original variability is lost.</p>
+                <li><strong>3D PCA:</strong> <span id="variance-3d">47.44%</span> of total variance.</li>
+                <p>Using three principal components captures <strong>47.44%</strong> of the total variance, reducing information loss compared to the 2D version.</p>
+            </ul>
+        
+            <div class="image-container">
+                <img src="screenshots/variance_explained.png" alt="Variance Explained Graph">
+                <p class="caption">Cumulative variance retained for increasing principal components.</p>
+            </div>
+        
+            <h3>Optimal Dimensionality</h3>
+            <p>To retain at least <strong>95% variance</strong>, a minimum of <strong><span id="num-components">17</span></strong> dimensions is required. The cumulative variance plot below shows how variance increases with the number of components.</p>
+        
+            <div class="image-container">
+                <img src="screenshots/cumulative_variance.png" alt="Cumulative Variance Plot">
+                <p class="caption">Cumulative variance across different principal components.</p>
+            </div>
+        
+            <h3>Eigenvalues and Principal Components</h3>
+            <p>The eigenvalues represent the amount of variance each principal component captures. The top three eigenvalues are:</p>
+            <ul>
+                <li><strong>Eigenvalue 1:</strong> 6.805</li>
+                <li><strong>Eigenvalue 2:</strong> 4.316</li>
+                <li><strong>Eigenvalue 3:</strong> 3.110</li>
+            </ul>
+        
+            <div class="image-container">
+                <img src="screenshots/eigenvalues.png" alt="Eigenvalues Output">
+                <p class="caption">Top three eigenvalues from PCA analysis.</p>
+            </div>
+        
+            <h3>Conclusion</h3>
+            <p>PCA effectively reduced dimensionality while preserving essential variance. The first few principal components encapsulate most of the dataset’s information, showcasing PCA’s utility in feature extraction and data compression. Key insights include:</p>
+            <ul>
+                <li>Reducing the dataset to <b>2D</b> retains <b>37.07%</b> variance, but loses a significant amount of information.</li>
+                <li>Using <b>3D</b> increases the retained variance to <b>47.44%</b>, but higher dimensions may still be required.</li>
+                <li>To retain at least <b>95% of the variance, <b>17 principal components</b> are needed.</li>
+            </ul>
+            <p>By optimizing the number of dimensions, PCA ensures computational efficiency while preserving meaningful patterns, making it a valuable tool for dimensionality reduction in machine learning and data analysis.</p>
+        </div>
+        
+        <div id="clustering" class="tab-content">
+            <h2>Comparison of Clustering Algorithms</h2>
+            <table border="1" cellpadding="8" cellspacing="0">
+                <tr>
+                    <th>Clustering Type</th>
+                    <th>Description</th>
+                    <th>Strengths</th>
+                    <th>Weaknesses</th>
+                </tr>
+                <tr>
+                    <td><strong>K-Means</strong></td>
+                    <td>Partitions data into k clusters by minimizing intra-cluster variance.</td>
+                    <td>Works well for spherical clusters, fast, scalable.</td>
+                    <td>Needs predefined k, sensitive to outliers.</td>
+                </tr>
+                <tr>
+                    <td><strong>Hierarchical</strong></td>
+                    <td>Creates a tree of clusters using agglomerative or divisive methods.</td>
+                    <td>No need to predefine k, produces dendrograms.</td>
+                    <td>Computationally expensive for large datasets.</td>
+                </tr>
+                <tr>
+                    <td><strong>DBSCAN</strong></td>
+                    <td>Groups points based on density and identifies outliers as noise.</td>
+                    <td>Finds arbitrarily shaped clusters, robust to noise.</td>
+                    <td>Struggles with varying densities, sensitive to hyperparameters.</td>
+                </tr>
+            </table>
+        
+            <h3>Dataset Preparation</h3>
+            <p>The dataset used for clustering analysis is <code>training_df.csv</code>. The preprocessing steps included:</p>
+            <ul>
+                <li>Removing non-numeric columns (e.g., date, time).</li>
+                <li>Separating labels from features.</li>
+                <li>Normalizing using <code>StandardScaler</code> (mean = 0, stddev = 1).</li>
+            </ul>
+            
+            <div class="image-container">
+                <img src="screenshots/raw_data.png" alt="Raw Dataset">
+                <p class="caption">Raw dataset before preprocessing.</p>
+            </div>
+            
+            <div class="image-container">
+                <img src="screenshots/normalized_data.png" alt="Normalized Dataset">
+                <p class="caption">Normalized dataset after preprocessing.</p>
+            </div>
+        
+            <h3>PCA Dimensionality Reduction</h3>
+            <p>To improve clustering visualization, PCA was applied to reduce data to 3 dimensions.</p>
+            <p><strong>Variance retained after PCA:</strong> <span id="variance-pca">47.44%</span></p>
+            
+            <div class="image-container">
+                <img src="screenshots/variance_pca_3d.png" alt="PCA Variance Retention">
+                <p class="caption">Cumulative variance retained after PCA.</p>
+            </div>
+        
+            <h3>K-Means Clustering</h3>
+            <p>Silhouette scores were used to determine optimal k values.</p>
+            
+            <div class="image-container">
+                <img src="screenshots/silhouette_scores.png" alt="Silhouette Scores">
+                <p class="caption">Silhouette scores for different values of k.</p>
+            </div>
+        
+            <h4>Selected K values:</h4>
+            <ul>
+                <li><strong>k = 4</strong></li>
+                <li><strong>k = 5</strong></li>
+                <li><strong>k = 6</strong></li>
+            </ul>
+            
+            <div class="image-container">
+                <img src="screenshots/clustering_k=4.png" alt="K-Means Clustering">
+                <p class="caption">K-Means clustering result for k=4.</p>
+            </div>
+        
+            <div class="image-container">
+                <img src="screenshots/clustering_k=5.png" alt="K-Means Clustering">
+                <p class="caption">K-Means clustering result for k=5.</p>
+            </div>
+
+            <div class="image-container">
+                <img src="screenshots/clustering_k=6.png" alt="K-Means Clustering">
+                <p class="caption">K-Means clustering result for k=6.</p>
+            </div>
+        
+            <h3>Hierarchical Clustering</h3>
+            <p>A dendrogram was generated using Ward’s method.</p>
+        
+            <div class="image-container">
+                <img src="screenshots/dendrogram.png" alt="Dendrogram">
+                <p class="caption">Hierarchical clustering dendrogram.</p>
+            </div>
+        
+            <div class="image-container">
+                <img src="screenshots/hierarchical_clusters.png" alt="Hierarchical Clustering">
+                <p class="caption">Hierarchical clustering results.</p>
+            </div>
+        
+            <h3>DBSCAN Clustering</h3>
+            <p>DBSCAN was applied to detect clusters and outliers.</p>
+        
+            <div class="image-container">
+                <img src="screenshots/dbscan.png" alt="DBSCAN Clustering">
+                <p class="caption">DBSCAN clustering result.</p>
+            </div>
+        
+            <h3>Comparison of Clustering Methods</h3>
+            <table border="1" cellpadding="8" cellspacing="0">
+                <tr>
+                    <th>Method</th>
+                    <th>Number of Clusters</th>
+                    <th>Handles Outliers?</th>
+                    <th>Best for Large Data?</th>
+                </tr>
+                <tr>
+                    <td><strong>K-Means</strong></td>
+                    <td>X</td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Hierarchical</strong></td>
+                    <td>X</td>
+                    <td>No</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><strong>DBSCAN</strong></td>
+                    <td>X</td>
+                    <td>Yes</td>
+                    <td>No</td>
+                </tr>
+            </table>
+        
+            <h3>Conclusion</h3>
+            <p>The results of clustering methods varied based on the dataset characteristics:</p>
+            <ul>
+                <li><strong>K-Means:</strong> Provided well-defined clusters but required choosing k in advance.</li>
+                <li><strong>Hierarchical Clustering:</strong> Allowed better data structure visualization but was computationally expensive.</li>
+                <li><strong>DBSCAN:</strong> Effectively detected outliers but was sensitive to parameter tuning.</li>
+            </ul>
+            <p>Ultimately, the best method depends on the specific needs of the dataset and application.</p>
+        
+            <h3>Code & Resources</h3>
+            <p>Full code is available on GitHub: <a href="https://github.com/your-repo/clustering-analysis" target="_blank">View Code</a></p>
+        </div>
+            
+        </div>
+    
+        <div id="arm" class="tab-content">
+            <p>Association Rule Mining (ARM) is used to identify relationships between items in a dataset. Key metrics:</p>
+            <ul>
+                <li><strong>Support:</strong> Frequency of an itemset.</li>
+                <li><strong>Confidence:</strong> Likelihood of the consequent given the antecedent.</li>
+                <li><strong>Lift:</strong> Strength of association.</li>
+            </ul>
+            <p>The <strong>Apriori algorithm</strong> generates candidate itemsets and prunes them based on minimum support.</p>
+        </div>
+    
                 
         <style>
             .collage {
