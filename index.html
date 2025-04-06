@@ -18,6 +18,8 @@
             <div class="tab" onclick="showTab('dt')">Decision Tree</div>
             <div class="tab" onclick="showTab('rf')">Random Forest</div>
             <div class="tab" onclick="showTab('naive-bayes')">Naive Bayes</div>
+            <div class="tab" onclick="showTab('decision-tree')">Decision Tree</div>
+            <div class="tab" onclick="showTab('regression')">Regression</div>
             <div class="tab" onclick="showTab('conclusion-results')">Conclusions</div>
             <div class="tab" onclick="showTab('links')">Links</div>
         </div>
@@ -1038,12 +1040,11 @@
             </ul>
         
             <h3>Conclusion</h3>
-            <p>The results of clustering methods varied based on the dataset characteristics:</p>
-            <ul>
-                <li><strong>K-Means:</strong> Provided well-defined clusters but required choosing <strong>k</strong> in advance.</li>
-                <li><strong>Hierarchical Clustering:</strong> Allowed better data structure visualization but was computationally expensive.</li>
-                <li><strong>DBSCAN:</strong> Effectively detected outliers but was sensitive to parameter tuning.</li>
-            </ul>
+            <p>Clustering helped uncover meaningful patterns in environmental and weather data that could be linked to wildfire activity. 
+                Each method offers a different view through which we can explore the data. K-Means was useful for finding general groupings, 
+                Hierarchical Clustering helped visualize relationships, and DBSCAN highlighted unusual or extreme conditions. 
+                These insights are valuable for understanding the diverse conditions that may contribute to wildfires and can guide more informed decision-making 
+                in environmental monitoring and disaster preparedness.</p>
                 
             <h3>Code</h3>
             <p>Full code to Clustering on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/clustering.ipynb" target="_blank">View Code</a></p>
@@ -1065,6 +1066,12 @@
             <h3>Apriori Algorithm and FP-Growth</h3>
             <p>The <strong>Apriori algorithm</strong> generates frequent itemsets and prunes them based on minimum support. However, it can be computationally expensive for large datasets. To improve efficiency, the <strong>FP-Growth algorithm</strong> is used in this project because it compresses transactions into an FP-tree, making it significantly faster than Apriori for large datasets.</p>
                     
+            <h3>How ARM Was Used in This Project</h3>
+            <p>In this project, Association Rule Mining was used to identify environmental and weather conditions that frequently occur together and may signal 
+                increased wildfire risk. For example, rules such as <em>"High wind and low soil moisture → fire occurrence"</em> help us uncover potentially 
+                hazardous patterns that might not be immediately obvious. By analyzing these occurrences, the model helps provide a better understanding 
+                and anticipating fire-prone scenarios.</p>
+        
             <h3>Data Preparation</h3>
             <p>ARM requires only <strong>unlabeled transactional data</strong>. In this project, the dataset was formatted into a binary transaction format, where each row represents a set of items purchased together or occurring together in an event.</p>
             
@@ -1121,6 +1128,209 @@
                 <li>Lift values higher than 1.5 indicate strong positive associations.</li>
             </ul>
             <p>By applying FP-Growth instead of Apriori, rule generation was significantly faster, making it suitable for large datasets.</p>
+        </div>
+
+        <div id="naive-bayes" class="tab-content">
+            <h2>Overview</h2>
+            <p><strong>Naïve Bayes (NB)</strong> is a family of simple yet powerful classification algorithms based on Bayes' Theorem, with the fundamental assumption that features are conditionally independent given the class label. Despite this "naïve" assumption, Naïve Bayes models often perform surprisingly well in real-world applications, especially in high-dimensional spaces such as text classification.</p>
+          
+            <p>Common use cases for Naïve Bayes include:</p>
+            <ul>
+              <li>Text classification (e.g., spam detection, sentiment analysis)</li>
+              <li>Medical diagnosis</li>
+              <li>Document categorization</li>
+              <li>Recommender systems</li>
+            </ul>
+          
+            <p>Advantages of Naïve Bayes models include fast training, scalability to large datasets, ease of interpretation, and relatively good performance even with limited data.</p>
+          
+            <h3>Types of Naïve Bayes Classifiers in Scikit-learn</h3>
+            <p>Scikit-learn provides multiple variants of Naïve Bayes classifiers, each tailored for different types of input features:</p>
+            <ul>
+              <li><strong>Gaussian Naïve Bayes (GNB):</strong> Assumes that features follow a normal (Gaussian) distribution. Best suited for continuous, normally-distributed data. Common applications include sensor-based analytics and biometric classification.</li>
+              <li><strong>Multinomial Naïve Bayes (MNB):</strong> Designed for discrete count features such as word frequencies. Ideal for text classification, including spam detection, news categorization, and topic modeling.</li>
+              <li><strong>Bernoulli Naïve Bayes:</strong> Suitable for binary features (e.g., presence/absence). Works well with binary text data after binarization. Common in sentiment analysis and email filtering.</li>
+              <li><strong>Categorical Naïve Bayes (CNB):</strong> Handles features that take on a limited number of discrete values. Useful for encoded categorical data such as demographics or survey responses.</li>
+            </ul>
+          
+            <h3>Comparison Summary</h3>
+            <table border="1" cellpadding="8" cellspacing="0">
+              <tr>
+                <th>Variant</th>
+                <th>Best for</th>
+                <th>Feature Type</th>
+                <th>Example Use Case</th>
+              </tr>
+              <tr>
+                <td><strong>Gaussian NB</strong></td>
+                <td>Continuous data</td>
+                <td>Normally distributed features</td>
+                <td>Medical diagnosis, sensor data</td>
+              </tr>
+              <tr>
+                <td><strong>Multinomial NB</strong></td>
+                <td>Text classification</td>
+                <td>Count-based discrete features</td>
+                <td>Email spam detection</td>
+              </tr>
+              <tr>
+                <td><strong>Bernoulli NB</strong></td>
+                <td>Binary data</td>
+                <td>Boolean features</td>
+                <td>Sentiment classification (yes/no features)</td>
+              </tr>
+              <tr>
+                <td><strong>Categorical NB</strong></td>
+                <td>Categorical variables</td>
+                <td>Labeled categories</td>
+                <td>Demographic-based classification</td>
+              </tr>
+            </table>
+          
+            <h3>Smoothing in Naïve Bayes</h3>
+            <p>Smoothing (typically Laplace smoothing) is essential in Naïve Bayes to handle the issue of zero probabilities. If a feature value never appears in the training data for a given class, it will result in a probability of zero, which can entirely nullify the prediction. Smoothing ensures that even unseen values have a small non-zero probability, improving generalization.</p>
+          
+            <h3>Data Preparation</h3>
+            <p>I implemented and compared three types of Naïve Bayes classifiers: <strong>MultinomialNB</strong>, <strong>GaussianNB</strong>, and <strong>CategoricalNB</strong>. Since each variant has unique input requirements, different data preparation methods were applied:</p>
+            <ul>
+              <li><strong>MultinomialNB:</strong> Required non-negative features, scaled using <code>MinMaxScaler</code>.</li>
+              <li><strong>GaussianNB:</strong> Required normalized continuous features, scaled using <code>StandardScaler</code>.</li>
+              <li><strong>CategoricalNB:</strong> Required discrete features, so <code>KBinsDiscretizer</code> was used with <code>n_bins=10</code>.</li>
+            </ul>
+            <p>The data was split using <code>train_test_split</code> to create disjoint training and testing sets for valid evaluation. Below are sample images of prepared data:</p>
+          
+            <div class="image-container">
+              <img src="Results/dataset.png" alt="Raw Dataset">
+              <p class="caption">Dataset before preprocessing</p>
+            </figure>
+          
+            <div class="image-container">
+              <img src="Results/NB/mnb_train_test_data_scaled.png" alt="MNB Scaled Data">
+              <p class="caption">MinMax-scaled data for MultinomialNB</p>
+            </figure>
+          
+            <div class="image-container">
+              <img src="Results/NB/gnb_train_test_data_scaled.png" alt="GNB Scaled Data">
+              <p class="caption">Standard-scaled data for GaussianNB</p>
+            </figure>
+          
+            <div class="image-container">
+              <img src="Results/NB/cnb_train_test_data_scaled.png" alt="CNB Binned Data">
+              <p class="caption">KBins-discretized data for CategoricalNB</p>
+            </figure>
+          
+            <h3>Model Results</h3>
+            <p><strong>Multinomial Naïve Bayes</strong></p>
+            <ul>
+              <li>Accuracy: 55.5%</li>
+              <li>AUC Score: 0.5812</li>
+              <li>Observation: Skewed recall; struggled with continuous data despite scaling</li>
+            </ul>
+            <div class="image-container">
+              <img src="Results/NB/mnb_classification_report.png" alt="MNB Confusion Matrix">
+              <p class="caption">MultinomialNB confusion matrix and classification report</p>
+            </figure>
+            <div class="image-container">
+              <img src="Results/NB/mnb_roc_auc.png" alt="MNB ROC Curve">
+              <p class="caption">ROC Curve for MultinomialNB</p>
+            </figure>
+          
+            <p><strong>Gaussian Naïve Bayes</strong></p>
+            <ul>
+              <li>Accuracy: 53.4%</li>
+              <li>AUC Score: 0.5832</li>
+              <li>Observation: Unbalanced recall; sensitive to normality assumptions</li>
+            </ul>
+            <div class="image-container">
+              <img src="Results/NB/gnb_classification_report.png" alt="GNB Confusion Matrix">
+              <p class="caption">GaussianNB confusion matrix and classification report</p>
+            </figure>
+            <div class="image-container">
+              <img src="Results/NB/gnb_roc_auc.png" alt="GNB ROC Curve">
+              <p class="caption">ROC Curve for GaussianNB</p>
+            </figure>
+          
+            <p><strong>Categorical Naïve Bayes</strong></p>
+            <ul>
+              <li>Accuracy: 58.4%</li>
+              <li>AUC Score: 0.6250</li>
+              <li>Observation: Most balanced and accurate model; binning helped fit assumptions</li>
+            </ul>
+            <div class="image-container">
+              <img src="Results/NB/cnb_classification_report.png" alt="CNB Confusion Matrix">
+              <p class="caption">CategoricalNB confusion matrix and classification report</p>
+            </figure>
+            <div class="image-container">
+                <img src="Results/NB/cnb_roc_auc.png" alt="CNB ROC Curve">
+                <p class="caption">ROC Curve for CategoricalNB</p>
+            </figure>
+            
+            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/ARM.ipynb" target="_blank">View Code</a></p>
+
+            <h3>Conclusions</h3>
+            <p>This comparative study revealed the importance of choosing the right Naïve Bayes variant based on the structure of the dataset. While MultinomialNB and GaussianNB showed limited performance due to mismatched assumptions, CategoricalNB benefited from preprocessing that transformed continuous features into discrete bins.</p>
+            <ul>
+              <li><strong>MultinomialNB:</strong> Struggled with non-count features even after scaling</li>
+              <li><strong>GaussianNB:</strong> Imbalanced predictions; likely affected by non-normal feature distributions</li>
+              <li><strong>CategoricalNB:</strong> Best-performing model due to alignment with feature encoding</li>
+            </ul>
+            <p>Ultimately, aligning data preparation with model expectations is key to optimizing performance. Naïve Bayes models are fast and effective when assumptions are met, and preprocessing can significantly influence outcomes.</p>
+        </div>
+          
+          
+        <div id="regression" class="tab-content">
+            <h3>Overview</h3>
+            <p>Linear Regression is a machine learning algorithm used to predict a continuous value based on input features. It fits a straight line through the data by finding the best values for the slope and intercept that minimize prediction errors. The line represents the relationship between inputs and the output. The model is trained using a method called least squares, which reduces the difference between actual and predicted values</p>
+            <p>Logistic Regression: Logistic regression is used to predict categories, typically yes/no or 0/1 outcomes. It calculates a linear combination of the input features and passes the result through a sigmoid function to get a probability. This probability is used to classify the input. The closer the output is to 1, the more confident the model is in predicting the positive class.</p>
+            <p>Both use a linear combination of input features to make predictions. The difference is in what they predict: linear regression outputs numbers, logistic regression outputs probabilities for categories. Linear regression uses least squares to fit a line, while logistic regression uses a method called maximum likelihood to find the best model.</p>
+            <p>Logistic regression uses the sigmoid function to convert the linear result into a probability between 0 and 1. This makes it possible to classify inputs based on how likely they belong to a certain category.</p>
+            <p>Logistic regression is trained using maximum likelihood estimation, which means it finds the model parameters that make the observed data most probable. This method adjusts the model so that the predicted probabilities are as close as possible to the actual class labels in the training data.</p>
+        </div>
+
+        <div id="decision-tree" class="tab-content">
+            <h3>Overview</h3>
+            <p>
+                A Decision Tree is a supervised learning algorithm used for both classification and regression tasks. It works by splitting data into branches based on feature values, forming a tree-like structure where each internal node represents a decision based on an attribute, each branch a possible outcome, and each leaf a final prediction (class label or value).
+            </p>
+        
+            <div class="image-container">
+                <img src="./images/simple_decision_tree.png" alt="Simple Decision Tree">
+                <p class="caption">A simple decision tree used to decide whether to play badminton based on the weather</p>
+            </div>
+        
+            <p>
+                Decision Trees are easy to understand and visualize, making them useful for interpreting data patterns and explaining model decisions. They can handle both numerical and categorical data and require minimal data preprocessing.
+            </p>
+        
+            <img src="tree-split-criteria.png" alt="Tree Splitting Criteria" width="400">
+            <p style="font-size: 0.9em;">Image 2: Visual of how a dataset is split based on features.</p>
+        
+            <p>
+                To decide the best feature to split on at each node, Decision Trees use metrics like <strong>GINI Index</strong>, <strong>Entropy</strong>, and <strong>Information Gain</strong>:
+                <ul>
+                    <li><strong>Entropy</strong> measures impurity or randomness in the dataset. A pure set has entropy 0.</li>
+                    <li><strong>Information Gain</strong> measures the reduction in entropy after a split. Higher gain means a better split.</li>
+                    <li><strong>GINI Index</strong> is another impurity measure, often used as an alternative to entropy in classification tasks.</li>
+                </ul>
+            </p>
+        
+            <p><strong>Example:</strong></p>
+            <p>
+                Suppose we have a small dataset to decide if a student studies based on whether it’s sunny:
+                <br><br>
+                Total examples: 10 (6 "Yes", 4 "No")<br>
+                Entropy before split = - (6/10) log₂(6/10) - (4/10) log₂(4/10) ≈ 0.971<br><br>
+                After splitting on weather:<br>
+                - Sunny: 4 "Yes", 1 "No" → Entropy ≈ 0.722<br>
+                - Not Sunny: 2 "Yes", 3 "No" → Entropy ≈ 0.971<br><br>
+                Weighted average entropy after split ≈ 0.846<br>
+                <strong>Information Gain = 0.971 - 0.846 = 0.125</strong><br>
+                This tells us that splitting on weather gives us some improvement, but maybe not the best.
+            </p>
+        
+            <p>
+                It is generally possible to create an infinite number of trees because each feature can be split in many ways, especially with numerical data. Without restrictions like maximum depth or minimum samples per leaf, the tree can keep growing, potentially overfitting the training data. That's why pruning or setting limits is important to keep the model generalizable.
+            </p>
         </div>
 
         <style>
