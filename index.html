@@ -1276,7 +1276,101 @@
             </ul>
             <p>Ultimately, aligning data preparation with model expectations is key to optimizing performance. Naïve Bayes models are fast and effective when assumptions are met, and preprocessing can significantly influence outcomes.</p>
         </div>
+        
+        <div id="decision-tree" class="tab-content">
+            <h2>Decision Tree Overview</h2>
+            <p><strong>Decision Trees (DTs)</strong> are supervised machine learning models used for classification and regression tasks. They work by recursively splitting the data into subsets based on feature values, resulting in a tree-like model of decisions.</p>
           
+            <p>Decision Trees are intuitive and interpretable, making them popular for applications like:</p>
+            <ul>
+              <li>Credit scoring</li>
+              <li>Medical diagnosis</li>
+              <li>Fraud detection</li>
+              <li>Customer segmentation</li>
+            </ul>
+          
+            <figure>
+              <img src="Results/Decision Tree/sample_tree.png" alt="Example Decision Tree">
+              <figcaption>Sample decision tree structure showing feature-based splits</figcaption>
+            </figure>
+          
+            <figure>
+              <img src="Results/Decision Tree/real_tree.png" alt="Real Decision Tree Output">
+              <figcaption>Visual output of a trained decision tree classifier</figcaption>
+            </figure>
+          
+            <h3>Splitting Criteria: GINI, Entropy, and Information Gain</h3>
+            <p>Decision Trees use criteria like <strong>Gini Impurity</strong> and <strong>Entropy</strong> to determine the best split. These metrics measure the impurity or uncertainty in the dataset.</p>
+          
+            <ul>
+              <li><strong>Gini Impurity:</strong> Measures the likelihood of incorrect classification of a randomly chosen element. Formula: <code>Gini = 1 - ∑(p_i^2)</code></li>
+              <li><strong>Entropy:</strong> Measures the disorder or impurity. Formula: <code>Entropy = -∑(p_i * log2(p_i))</code></li>
+              <li><strong>Information Gain:</strong> The reduction in entropy or impurity from a split. It helps in selecting the attribute that best separates the samples.</li>
+            </ul>
+          
+            <p><strong>Example:</strong> Assume a binary classification dataset with 8 positive and 4 negative examples. Entropy before a split is:</p>
+            <pre>Entropy = - (8/12)*log2(8/12) - (4/12)*log2(4/12) ≈ 0.918</pre>
+            <p>If a split divides data into subsets with entropy values of 0.811 and 0.0, Information Gain is:</p>
+            <pre>IG = 0.918 - (9/12)*0.811 - (3/12)*0.0 = 0.309</pre>
+          
+            <p>Since features can be split repeatedly in different ways, <strong>an infinite number of unique trees can be created</strong> depending on data combinations, depth, and criteria.</p>
+          
+            <h3>Data Preparation</h3>
+            <p>Decision Trees do not require feature scaling or standardization, making them straightforward to implement. I reused the same cleaned and preprocessed dataset used for Naïve Bayes without additional scaling.</p>
+          
+            <p>Data was split using <code>train_test_split</code> into training and testing sets (80:20 ratio). This ensures that evaluation is based on unseen data, preventing data leakage.</p>
+          
+            <figure>
+              <img src="screenshots/dataset.png" alt="Raw Dataset">
+              <figcaption>Cleaned dataset before applying Decision Tree</figcaption>
+            </figure>
+          
+            <figure>
+              <img src="Results/Decision Tree/X_train.png" alt="Train-Test Split">
+              <img src="Results/Decision Tree/X_test.png" alt="Train-Test Split">
+              <figcaption>Training and testing sets generated using scikit-learn</figcaption>
+            </figure>
+          
+            <h3>Modeling and Code</h3>
+            <p>The basline model was overfitting with a training accuracy of 99.8% and a testing accuracy of 80.06%. We can clearly see there is a huge difference between accuracy on training and test dataset. To prevent
+                overfitting I used a controlled model by changing the parameters of the model.
+            </p>
+            <p>Three different decision trees were built by tuning parameters such as <code>max_depth</code>, <code>min_samples_split</code>, and <code>criterion</code>. The trees were constructed using scikit-learn’s <code>DecisionTreeClassifier</code>.</p>
+          
+            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/ARM.ipynb" target="_blank">View Code</a></p>
+          
+            <h3>Model Results</h3>
+            <p>The decision tree model achieved the following metrics:</p>
+            <ul>
+              <li><strong>Training Accuracy:</strong> 79.9%</li>
+              <li><strong>Testing Accuracy:</strong> 75.9%</li>
+              <li><strong>AUC Score:</strong> 0.82</li>
+              <li><strong>Observation:</strong> The model generalizes well, with minimal overfitting. It performed better than Naïve Bayes models.</li>
+            </ul>
+          
+            <figure>
+              <img src="Results/Decision Tree/dt_accuracy.png" alt="DT Accuracy">
+              <figcaption>Training vs. Testing Accuracy for Decision Tree</figcaption>
+            </figure>
+          
+            <figure>
+              <img src="Results/Decision Tree/dt_classification_report.png" alt="DT Classification Report">
+              <figcaption>Confusion Matrix and Classification Report for Decision Tree</figcaption>
+            </figure>
+          
+            <figure>
+              <img src="Results/Decision Tree/dt_roc_auc.png" alt="DT ROC Curve">
+              <figcaption>ROC Curve for Decision Tree with AUC = 0.82</figcaption>
+            </figure>
+          
+            <h3>Conclusions</h3>
+            <p>Decision Trees offered superior performance over Naïve Bayes models in both accuracy and AUC. The model was interpretable, fast, and did not require feature scaling.</p>
+            <ul>
+              <li>The balance between bias and variance was managed effectively using hyperparameter tuning.</li>
+              <li>Class 1 had higher recall, indicating strong detection of positive cases in our fire prediction problem.</li>
+              <li>The visualizations and metrics confirm that Decision Trees are a solid choice for this dataset.</li>
+            </ul>
+          </div>
           
         <div id="regression" class="tab-content">
             <h3>Overview</h3>
@@ -1285,52 +1379,6 @@
             <p>Both use a linear combination of input features to make predictions. The difference is in what they predict: linear regression outputs numbers, logistic regression outputs probabilities for categories. Linear regression uses least squares to fit a line, while logistic regression uses a method called maximum likelihood to find the best model.</p>
             <p>Logistic regression uses the sigmoid function to convert the linear result into a probability between 0 and 1. This makes it possible to classify inputs based on how likely they belong to a certain category.</p>
             <p>Logistic regression is trained using maximum likelihood estimation, which means it finds the model parameters that make the observed data most probable. This method adjusts the model so that the predicted probabilities are as close as possible to the actual class labels in the training data.</p>
-        </div>
-
-        <div id="decision-tree" class="tab-content">
-            <h3>Overview</h3>
-            <p>
-                A Decision Tree is a supervised learning algorithm used for both classification and regression tasks. It works by splitting data into branches based on feature values, forming a tree-like structure where each internal node represents a decision based on an attribute, each branch a possible outcome, and each leaf a final prediction (class label or value).
-            </p>
-        
-            <div class="image-container">
-                <img src="./images/simple_decision_tree.png" alt="Simple Decision Tree">
-                <p class="caption">A simple decision tree used to decide whether to play badminton based on the weather</p>
-            </div>
-        
-            <p>
-                Decision Trees are easy to understand and visualize, making them useful for interpreting data patterns and explaining model decisions. They can handle both numerical and categorical data and require minimal data preprocessing.
-            </p>
-        
-            <img src="tree-split-criteria.png" alt="Tree Splitting Criteria" width="400">
-            <p style="font-size: 0.9em;">Image 2: Visual of how a dataset is split based on features.</p>
-        
-            <p>
-                To decide the best feature to split on at each node, Decision Trees use metrics like <strong>GINI Index</strong>, <strong>Entropy</strong>, and <strong>Information Gain</strong>:
-                <ul>
-                    <li><strong>Entropy</strong> measures impurity or randomness in the dataset. A pure set has entropy 0.</li>
-                    <li><strong>Information Gain</strong> measures the reduction in entropy after a split. Higher gain means a better split.</li>
-                    <li><strong>GINI Index</strong> is another impurity measure, often used as an alternative to entropy in classification tasks.</li>
-                </ul>
-            </p>
-        
-            <p><strong>Example:</strong></p>
-            <p>
-                Suppose we have a small dataset to decide if a student studies based on whether it’s sunny:
-                <br><br>
-                Total examples: 10 (6 "Yes", 4 "No")<br>
-                Entropy before split = - (6/10) log₂(6/10) - (4/10) log₂(4/10) ≈ 0.971<br><br>
-                After splitting on weather:<br>
-                - Sunny: 4 "Yes", 1 "No" → Entropy ≈ 0.722<br>
-                - Not Sunny: 2 "Yes", 3 "No" → Entropy ≈ 0.971<br><br>
-                Weighted average entropy after split ≈ 0.846<br>
-                <strong>Information Gain = 0.971 - 0.846 = 0.125</strong><br>
-                This tells us that splitting on weather gives us some improvement, but maybe not the best.
-            </p>
-        
-            <p>
-                It is generally possible to create an infinite number of trees because each feature can be split in many ways, especially with numerical data. Without restrictions like maximum depth or minimum samples per leaf, the tree can keep growing, potentially overfitting the training data. That's why pruning or setting limits is important to keep the model generalizable.
-            </p>
         </div>
 
         <style>
