@@ -15,10 +15,9 @@
             <div class="tab" onclick="showTab('clustering')">Clustering</div>
             <div class="tab" onclick="showTab('arm')">ARM</div>
             <div class="tab" onclick="showTab('svm')">Support Vector Machine</div>
-            <div class="tab" onclick="showTab('dt')">Decision Tree</div>
+            <div class="tab" onclick="showTab('decision-tree')">Decision Tree</div>
             <div class="tab" onclick="showTab('rf')">Random Forest</div>
             <div class="tab" onclick="showTab('naive-bayes')">Naive Bayes</div>
-            <div class="tab" onclick="showTab('decision-tree')">Decision Tree</div>
             <div class="tab" onclick="showTab('regression')">Regression</div>
             <div class="tab" onclick="showTab('conclusion-results')">Conclusions</div>
             <div class="tab" onclick="showTab('links')">Links</div>
@@ -837,12 +836,7 @@
         
             <h3>Optimal Dimensionality</h3>
             <p>To retain at least <strong>95% variance</strong>, a minimum of <strong>17</strong> dimensions is required. The cumulative variance plot below shows how variance increases with the number of components.</p>
-                
-            <div class="image-container">
-                <img src="screenshots/cumulative_variance.png" alt="Cumulative Variance Plot">
-                <p class="caption">Cumulative variance across different principal components.</p>
-            </div>
-        
+                        
             <h3>Eigenvalues and Principal Components</h3>
             <p>The eigenvalues represent the amount of variance each principal component captures. The top three eigenvalues are:</p>
             <ul>
@@ -1049,9 +1043,7 @@
             <h3>Code</h3>
             <p>Full code to Clustering on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/clustering.ipynb" target="_blank">View Code</a></p>
         </div>
-                    
-        </div>
-    
+                        
         <div id="arm" class="tab-content">
             <h2>Association Rule Mining (ARM)</h2>
             <p><strong>Association Rule Mining (ARM)</strong> is a data mining technique used to discover interesting relationships between items in large datasets. It is widely used in market basket analysis, recommendation systems, and various fields where relationships between data points are valuable.</p>
@@ -1200,24 +1192,24 @@
             <p>The data was split using <code>train_test_split</code> to create disjoint training and testing sets for valid evaluation. Below are sample images of prepared data:</p>
           
             <div class="image-container">
-              <img src="Results/dataset.png" alt="Raw Dataset">
-              <p class="caption">Dataset before preprocessing</p>
-            </figure>
+                <img src="screenshots/dataset.png" alt="Dataset">
+                <p class="caption">Dataset before preprocessing</p>
+            </div>
           
             <div class="image-container">
               <img src="Results/NB/mnb_train_test_data_scaled.png" alt="MNB Scaled Data">
               <p class="caption">MinMax-scaled data for MultinomialNB</p>
-            </figure>
+            </div>
           
             <div class="image-container">
               <img src="Results/NB/gnb_train_test_data_scaled.png" alt="GNB Scaled Data">
               <p class="caption">Standard-scaled data for GaussianNB</p>
-            </figure>
+            </div>
           
             <div class="image-container">
               <img src="Results/NB/cnb_train_test_data_scaled.png" alt="CNB Binned Data">
               <p class="caption">KBins-discretized data for CategoricalNB</p>
-            </figure>
+            </div>
           
             <h3>Model Results</h3>
             <p><strong>Multinomial Naïve Bayes</strong></p>
@@ -1229,11 +1221,11 @@
             <div class="image-container">
               <img src="Results/NB/mnb_classification_report.png" alt="MNB Confusion Matrix">
               <p class="caption">MultinomialNB confusion matrix and classification report</p>
-            </figure>
+            </div>
             <div class="image-container">
               <img src="Results/NB/mnb_roc_auc.png" alt="MNB ROC Curve">
               <p class="caption">ROC Curve for MultinomialNB</p>
-            </figure>
+            </div>
           
             <p><strong>Gaussian Naïve Bayes</strong></p>
             <ul>
@@ -1244,11 +1236,11 @@
             <div class="image-container">
               <img src="Results/NB/gnb_classification_report.png" alt="GNB Confusion Matrix">
               <p class="caption">GaussianNB confusion matrix and classification report</p>
-            </figure>
+            </div>
             <div class="image-container">
               <img src="Results/NB/gnb_roc_auc.png" alt="GNB ROC Curve">
               <p class="caption">ROC Curve for GaussianNB</p>
-            </figure>
+            </div>
           
             <p><strong>Categorical Naïve Bayes</strong></p>
             <ul>
@@ -1259,13 +1251,13 @@
             <div class="image-container">
               <img src="Results/NB/cnb_classification_report.png" alt="CNB Confusion Matrix">
               <p class="caption">CategoricalNB confusion matrix and classification report</p>
-            </figure>
+            </div>
             <div class="image-container">
                 <img src="Results/NB/cnb_roc_auc.png" alt="CNB ROC Curve">
                 <p class="caption">ROC Curve for CategoricalNB</p>
-            </figure>
+            </div>
             
-            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/ARM.ipynb" target="_blank">View Code</a></p>
+            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/NB.ipynb" target="_blank">View Code</a></p>
 
             <h3>Conclusions</h3>
             <p>This comparative study revealed the importance of choosing the right Naïve Bayes variant based on the structure of the dataset. While MultinomialNB and GaussianNB showed limited performance due to mismatched assumptions, CategoricalNB benefited from preprocessing that transformed continuous features into discrete bins.</p>
@@ -1289,15 +1281,15 @@
               <li>Customer segmentation</li>
             </ul>
           
-            <figure>
+            <div class="image-container">
               <img src="Results/Decision Tree/sample_tree.png" alt="Example Decision Tree">
-              <figcaption>Sample decision tree structure showing feature-based splits</figcaption>
-            </figure>
+              <p class="caption">Sample decision tree structure showing feature-based splits</p>
+            </div>
           
-            <figure>
+            <div class="image-container">
               <img src="Results/Decision Tree/real_tree.png" alt="Real Decision Tree Output">
-              <figcaption>Visual output of a trained decision tree classifier</figcaption>
-            </figure>
+              <p class="caption">Visual output of a trained decision tree classifier</p>
+            </div>
           
             <h3>Splitting Criteria: GINI, Entropy, and Information Gain</h3>
             <p>Decision Trees use criteria like <strong>Gini Impurity</strong> and <strong>Entropy</strong> to determine the best split. These metrics measure the impurity or uncertainty in the dataset.</p>
@@ -1320,16 +1312,16 @@
           
             <p>Data was split using <code>train_test_split</code> into training and testing sets (80:20 ratio). This ensures that evaluation is based on unseen data, preventing data leakage.</p>
           
-            <figure>
-              <img src="screenshots/dataset.png" alt="Raw Dataset">
-              <figcaption>Cleaned dataset before applying Decision Tree</figcaption>
-            </figure>
+            <div class="image-container">
+                <img src="screenshots/dataset.png" alt="Dataset">
+                <p class="caption">Dataset before preprocessing</p>
+            </div>
           
-            <figure>
+            <div class="image-container">
               <img src="Results/Decision Tree/X_train.png" alt="Train-Test Split">
               <img src="Results/Decision Tree/X_test.png" alt="Train-Test Split">
-              <figcaption>Training and testing sets generated using scikit-learn</figcaption>
-            </figure>
+              <p class="caption">Training and testing sets generated using scikit-learn</p>
+            </div>
           
             <h3>Modeling and Code</h3>
             <p>The basline model was overfitting with a training accuracy of 99.8% and a testing accuracy of 80.06%. We can clearly see there is a huge difference between accuracy on training and test dataset. To prevent
@@ -1337,7 +1329,7 @@
             </p>
             <p>Three different decision trees were built by tuning parameters such as <code>max_depth</code>, <code>min_samples_split</code>, and <code>criterion</code>. The trees were constructed using scikit-learn’s <code>DecisionTreeClassifier</code>.</p>
           
-            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/ARM.ipynb" target="_blank">View Code</a></p>
+            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/decisionTree.ipynb" target="_blank">View Code</a></p>
           
             <h3>Model Results</h3>
             <p>The decision tree model achieved the following metrics:</p>
@@ -1348,20 +1340,20 @@
               <li><strong>Observation:</strong> The model generalizes well, with minimal overfitting. It performed better than Naïve Bayes models.</li>
             </ul>
           
-            <figure>
+            <div class="image-container">
               <img src="Results/Decision Tree/dt_accuracy.png" alt="DT Accuracy">
-              <figcaption>Training vs. Testing Accuracy for Decision Tree</figcaption>
-            </figure>
+              <p class="caption">Training vs. Testing Accuracy for Decision Tree</p>
+            </div>
           
-            <figure>
+            <div class="image-container">
               <img src="Results/Decision Tree/dt_classification_report.png" alt="DT Classification Report">
-              <figcaption>Confusion Matrix and Classification Report for Decision Tree</figcaption>
-            </figure>
+              <p class="caption">Confusion Matrix and Classification Report for Decision Tree</p>
+            </div>
           
-            <figure>
+            <div class="image-container">
               <img src="Results/Decision Tree/dt_roc_auc.png" alt="DT ROC Curve">
-              <figcaption>ROC Curve for Decision Tree with AUC = 0.82</figcaption>
-            </figure>
+              <p class="caption">ROC Curve for Decision Tree with AUC = 0.82</p>
+            </div>
           
             <h3>Conclusions</h3>
             <p>Decision Trees offered superior performance over Naïve Bayes models in both accuracy and AUC. The model was interpretable, fast, and did not require feature scaling.</p>
@@ -1370,8 +1362,8 @@
               <li>Class 1 had higher recall, indicating strong detection of positive cases in our fire prediction problem.</li>
               <li>The visualizations and metrics confirm that Decision Trees are a solid choice for this dataset.</li>
             </ul>
-          </div>
-          
+        </div>
+
         <div id="regression" class="tab-content">
             <h3>Overview</h3>
             <p>Linear Regression is a machine learning algorithm used to predict a continuous value based on input features. It fits a straight line through the data by finding the best values for the slope and intercept that minimize prediction errors. The line represents the relationship between inputs and the output. The model is trained using a method called least squares, which reduces the difference between actual and predicted values</p>
