@@ -784,7 +784,17 @@
             
             <h3>PCA in This Project</h3>
             <p>PCA was applied to a wildfire dataset to analyze high-dimensional features and reduce complexity while retaining critical variance. The goal was to visualize patterns and determine how many dimensions are necessary to capture meaningful information. The dataset contains multiple features related to environmental and fire risk factors.</p>
-                
+            
+            <div class="image-container">
+                <img src="images/pca_explanation.png" alt="PCA Explanation">
+                <p class="caption">PCA Process</p>
+            </div>
+
+            <div class="image-container">
+                <img src="images/pca_process" alt="PCA Process">
+                <p class="caption">Step by step process of PCA</p>
+            </div>
+
             <div class="image-container">
                 <div class="collage">
                     <div class="image-item">
@@ -1046,105 +1056,117 @@
                         
         <div id="arm" class="tab-content">
             <h2>Association Rule Mining (ARM)</h2>
-            <p><strong>Association Rule Mining (ARM)</strong> is a data mining technique used to discover interesting relationships between items in large datasets. It is widely used in market basket analysis, recommendation systems, and various fields where relationships between data points are valuable.</p>
+            <p><strong>Association Rule Mining (ARM)</strong> is a data mining method used to uncover relationships or patterns among variables in large datasets. It is commonly applied in market basket analysis, recommender systems, and environmental monitoring.</p>
+          
+            <h3>What is ARM and How Does It Work?</h3>
+            <p>ARM finds frequent patterns in transactional data and generates <strong>rules</strong> in the form of <code>{antecedent} → {consequent}</code>. Each rule is evaluated based on support, confidence, and lift, which measure frequency and strength of association.</p>
+          
+            <div class="image-container">
+              <img src="images/ARM.png" alt="How ARM works">
+              <p class="caption">ARM Workflow: frequent itemsets → rules using Support, Confidence, and Lift</p>
+            </div>
+            <div class="image-container">
+                <img src="images/Apriori.jpg" alt="How ARM works">
+                <p class="caption">Working of Apriori Algorithm</p>
+            </div>
             
             <h3>Key Metrics in ARM</h3>
             <ul>
-                <li><strong>Support:</strong> The frequency of an itemset appearing in the dataset.</li>
-                <li><strong>Confidence:</strong> The likelihood that the consequent occurs given the antecedent.</li>
-                <li><strong>Lift:</strong> The strength of association, measuring how much more likely items co-occur compared to random chance.</li>
+              <li><strong>Support:</strong> The proportion of transactions that contain an itemset.</li>
+              <li><strong>Confidence:</strong> The probability that the consequent is found given the antecedent.</li>
+              <li><strong>Lift:</strong> The ratio of observed confidence to expected confidence. Lift > 1 indicates a positive association.</li>
             </ul>
-            
-            <h3>Apriori Algorithm and FP-Growth</h3>
-            <p>The <strong>Apriori algorithm</strong> generates frequent itemsets and prunes them based on minimum support. However, it can be computationally expensive for large datasets. To improve efficiency, the <strong>FP-Growth algorithm</strong> is used in this project because it compresses transactions into an FP-tree, making it significantly faster than Apriori for large datasets.</p>
-                    
+          
+            <h3>Apriori vs FP-Growth</h3>
+            <p>While <strong>Apriori</strong> systematically explores all item combinations, it can be slow for large datasets. <strong>FP-Growth</strong> is more efficient and uses a compressed FP-tree structure to mine frequent itemsets without candidate generation.</p>
+          
             <h3>How ARM Was Used in This Project</h3>
-            <p>In this project, Association Rule Mining was used to identify environmental and weather conditions that frequently occur together and may signal 
-                increased wildfire risk. For example, rules such as <em>"High wind and low soil moisture → fire occurrence"</em> help us uncover potentially 
-                hazardous patterns that might not be immediately obvious. By analyzing these occurrences, the model helps provide a better understanding 
-                and anticipating fire-prone scenarios.</p>
-        
-            <h3>Data Preparation</h3>
-            <p>ARM requires only <strong>unlabeled transactional data</strong>. In this project, the dataset was formatted into a binary transaction format, where each row represents a set of items purchased together or occurring together in an event.</p>
-            
+            <p>In this wildfire prediction project, ARM was used to discover recurring weather and environmental conditions that frequently co-occur before fires. For example, rules such as <em>{"low humidity", "high wind"} → {"fire"}</em> help us pinpoint high-risk patterns that are not immediately visible using supervised learning methods.</p>
+          
             <div class="image-container">
-                <img src="screenshots/dataset.png" alt="Raw Transaction Data">
-                <p class="caption">Raw data before transformation.</p>
+              <img src="screenshots/dataset.png" alt="Raw Transaction Data">
+              <p class="caption">Raw environmental data before transformation</p>
             </div>
             <div class="image-container">
-                <img src="screenshots/processed_transaction_data.png" alt="Processed Transaction Data">
-                <p class="caption">Example of transformed transaction data.</p>
+              <img src="screenshots/processed_transaction_data.png" alt="Processed Transaction Data">
+              <p class="caption">Binary transaction format used for ARM</p>
             </div>
-            
-            <p>Access the dataset here: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Datasets/transaction_data.csv" target="_blank">Transaction Data</a>.</p>
-            
+          
+            <p>📁 <strong>Dataset:</strong> <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Datasets/transaction_data.csv" target="_blank">transaction_data.csv</a></p>
+          
             <h3>ARM Implementation</h3>
-            <p>The FP-Growth algorithm was applied using <code>mlxtend</code> in Python to extract frequent itemsets and generate association rules.</p>
-            
-            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/ARM.ipynb" target="_blank">View Code</a></p>
-            
+            <p><code>mlxtend</code>'s implementation of <strong>FP-Growth</strong> was used to generate frequent itemsets and extract association rules with thresholds: support ≥ 0.005, confidence ≥ 0.2, lift ≥ 1.5.</p>
+            <p>💻 <strong>Code:</strong> <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/ARM.ipynb" target="_blank">ARM.ipynb on GitHub</a></p>
+          
             <h3>Results</h3>
-            <p>Top 15 rules were ranked based on <strong>support</strong>, <strong>confidence</strong>, and <strong>lift</strong>. The following thresholds were used:</p>
-            <ul>
-                <li><strong>Minimum Support:</strong> 0.005</li>
-                <li><strong>Minimum Confidence:</strong> 0.2</li>
-                <li><strong>Minimum Lift:</strong> 1.5</li>
-            </ul>
-        
+            <p>We extracted and visualized the top 15 association rules based on each metric:</p>
+          
+            <h4>Top Rules by Support</h4>
+            <p><em>Support</em> helps identify the most common patterns in the dataset. These rules reflect frequently co-occurring conditions.</p>
             <div class="image-container">
-                <img src="screenshots/top_support_rules.png" alt="Top Support Rules">
-                <p class="caption">Top 15 association rules based on support.</p>
+              <img src="screenshots/top_support_rules.png" alt="Top Support Rules">
+              <p class="caption">Top 15 rules sorted by support</p>
             </div>
+          
+            <h4>Top Rules by Confidence</h4>
+            <p><em>Confidence</em> shows how often the rule is correct when the antecedent is present. High-confidence rules are more reliable.</p>
             <div class="image-container">
-                <img src="screenshots/top_confidence_rules.png" alt="Top Confidence Rules">
-                <p class="caption">Top 15 association rules based on confidence.</p>
+              <img src="screenshots/top_confidence_rules.png" alt="Top Confidence Rules">
+              <p class="caption">Top 15 rules sorted by confidence</p>
             </div>
+          
+            <h4>Top Rules by Lift</h4>
+            <p><em>Lift</em> indicates how much more likely the consequent is, compared to random chance. Rules with Lift > 1.5 are strong associations.</p>
             <div class="image-container">
-                <img src="screenshots/top_lift_rules.png" alt="Top Lift Rules">
-                <p class="caption">Top 15 association rules based on lift.</p>
+              <img src="screenshots/top_lift_rules.png" alt="Top Lift Rules">
+              <p class="caption">Top 15 rules sorted by lift</p>
             </div>
-            
+          
             <h3>Network Visualization</h3>
-            <p>The relationships between items were visualized using a network graph. This helps identify key associations between frequently occurring items.</p>
-            
+            <p>A network graph was used to visualize how items are connected through rules. This helped highlight critical variables like wind speed, soil moisture, and pressure that cluster with fire occurrence.</p>
             <div class="image-container">
-                <img src="screenshots/arm_network.png" alt="Association Rule Network">
-                <p class="caption">Network visualization of strong association rules.</p>
+              <img src="screenshots/arm_network.png" alt="Association Rule Network">
+              <p class="caption">Network of strong association rules with fire-relevant features</p>
             </div>
-            
+          
             <h3>Conclusion</h3>
-            <p>Association Rule Mining provided valuable insights into item relationships in the dataset. Key findings include:</p>
+            <p>ARM revealed frequent environmental patterns that correlate with wildfire risk. Key insights:</p>
             <ul>
-                <li>High support rules indicate common co-occurrences.</li>
-                <li>Confidence shows the reliability of associations.</li>
-                <li>Lift values higher than 1.5 indicate strong positive associations.</li>
+              <li><strong>High support:</strong> rules helped identify frequent weather combinations</li>
+              <li><strong>High confidence:</strong> rules showed strong reliability, e.g., high temperature and low humidity often led to fire</li>
+              <li><strong>High lift:</strong> rules emphasized non-random, meaningful associations</li>
             </ul>
-            <p>By applying FP-Growth instead of Apriori, rule generation was significantly faster, making it suitable for large datasets.</p>
+            <p><strong>Takeaway:</strong> ARM added a new, interpretable layer to our wildfire prediction strategy by exposing unsupervised relationships between environmental variables. These insights can support early warning systems and resource allocation.</p>
         </div>
-
+          
         <div id="naive-bayes" class="tab-content">
             <h2>Overview</h2>
-            <p><strong>Naïve Bayes (NB)</strong> is a family of simple yet powerful classification algorithms based on Bayes' Theorem, with the fundamental assumption that features are conditionally independent given the class label. Despite this "naïve" assumption, Naïve Bayes models often perform surprisingly well in real-world applications, especially in high-dimensional spaces such as text classification.</p>
-          
-            <p>Common use cases for Naïve Bayes include:</p>
+            <p><strong>Naïve Bayes (NB)</strong> is a family of probabilistic classifiers based on Bayes’ Theorem with the assumption that features are conditionally independent given the class. Despite this simplification, Naïve Bayes models perform well in many real-world applications, particularly when working with high-dimensional data.</p>
+            
+            <p>Naïve Bayes is commonly used for:</p>
             <ul>
-              <li>Text classification (e.g., spam detection, sentiment analysis)</li>
+              <li>Text classification (spam detection, sentiment analysis)</li>
               <li>Medical diagnosis</li>
               <li>Document categorization</li>
               <li>Recommender systems</li>
             </ul>
-          
-            <p>Advantages of Naïve Bayes models include fast training, scalability to large datasets, ease of interpretation, and relatively good performance even with limited data.</p>
-          
+            
+            <p><strong>Advantages:</strong> Fast to train, simple to implement, works well on small datasets, and scalable to large feature spaces.</p>
+            
             <h3>Types of Naïve Bayes Classifiers in Scikit-learn</h3>
-            <p>Scikit-learn provides multiple variants of Naïve Bayes classifiers, each tailored for different types of input features:</p>
+            <p>Scikit-learn provides multiple Naïve Bayes variants, each suited to specific feature types:</p>
             <ul>
-              <li><strong>Gaussian Naïve Bayes (GNB):</strong> Assumes that features follow a normal (Gaussian) distribution. Best suited for continuous, normally-distributed data. Common applications include sensor-based analytics and biometric classification.</li>
-              <li><strong>Multinomial Naïve Bayes (MNB):</strong> Designed for discrete count features such as word frequencies. Ideal for text classification, including spam detection, news categorization, and topic modeling.</li>
-              <li><strong>Bernoulli Naïve Bayes:</strong> Suitable for binary features (e.g., presence/absence). Works well with binary text data after binarization. Common in sentiment analysis and email filtering.</li>
-              <li><strong>Categorical Naïve Bayes (CNB):</strong> Handles features that take on a limited number of discrete values. Useful for encoded categorical data such as demographics or survey responses.</li>
+              <li><strong>Multinomial Naïve Bayes (MNB):</strong> Designed for count data such as word frequencies in text documents. Suitable for NLP tasks like spam detection or topic classification.</li>
+              <li><strong>Gaussian Naïve Bayes (GNB):</strong> Assumes features are normally distributed. Works best with continuous features like temperature or sensor readings.</li>
+              <li><strong>Bernoulli Naïve Bayes:</strong> Best for binary/boolean features (e.g., presence or absence of a word). Used in binary text data and sentiment analysis with binary indicators.</li>
+              <li><strong>Categorical Naïve Bayes (CNB):</strong> Works with discrete categorical features (e.g., color: red, blue). Ideal for demographic or ordinal-encoded data.</li>
             </ul>
-          
+            
+            <div class="image-container">
+              <img src="Results/NB/nb_explanation.png" alt="Naïve Bayes Diagram">
+              <p class="caption">Visual representation of Naïve Bayes structure and classification flow</p>
+            </div>
+            
             <h3>Comparison Summary</h3>
             <table border="1" cellpadding="8" cellspacing="0">
               <tr>
@@ -1178,95 +1200,97 @@
                 <td>Demographic-based classification</td>
               </tr>
             </table>
-          
+            
             <h3>Smoothing in Naïve Bayes</h3>
-            <p>Smoothing (typically Laplace smoothing) is essential in Naïve Bayes to handle the issue of zero probabilities. If a feature value never appears in the training data for a given class, it will result in a probability of zero, which can entirely nullify the prediction. Smoothing ensures that even unseen values have a small non-zero probability, improving generalization.</p>
-          
+            <p><strong>Why smoothing?</strong> Smoothing addresses the problem of zero probability. If a feature value is not seen in the training data for a given class, the model assigns a zero probability to it — making the entire product of probabilities zero and the classification fail.</p>
+            <p><strong>Laplace Smoothing</strong> (additive smoothing) adds a small constant (usually 1) to all counts to ensure no probability is exactly zero. This improves generalization and model robustness on unseen data.</p>
+            
+            <div class="image-container">
+                <img src="Results/NB/laplace_smoothing.jpg" alt="Laplace Smoothing">
+                <p class="caption">Laplace Smoothing for Naive Bayes Classifier</p>
+            </div>
+
             <h3>Data Preparation</h3>
-            <p>I implemented and compared three types of Naïve Bayes classifiers: <strong>MultinomialNB</strong>, <strong>GaussianNB</strong>, and <strong>CategoricalNB</strong>. Since each variant has unique input requirements, different data preparation methods were applied:</p>
+            <p>I implemented and evaluated three types of Naïve Bayes classifiers on a wildfire dataset with binary labels (fire = 0 or 1): <strong>MultinomialNB</strong>, <strong>GaussianNB</strong>, and <strong>CategoricalNB</strong>. Since each model requires specific data formats, I applied different preprocessing techniques to ensure compatibility:</p>
+            
             <ul>
-              <li><strong>MultinomialNB:</strong> Required non-negative features, scaled using <code>MinMaxScaler</code>.</li>
-              <li><strong>GaussianNB:</strong> Required normalized continuous features, scaled using <code>StandardScaler</code>.</li>
-              <li><strong>CategoricalNB:</strong> Required discrete features, so <code>KBinsDiscretizer</code> was used with <code>n_bins=10</code>.</li>
+              <li><strong>MultinomialNB:</strong> Required non-negative input, so I used <code>MinMaxScaler</code> to scale all features between 0 and 1.</li>
+              <li><strong>GaussianNB:</strong> Requires normally distributed continuous data, so I applied <code>StandardScaler</code>.</li>
+              <li><strong>CategoricalNB:</strong> Required discrete inputs, so I used <code>KBinsDiscretizer</code> with <code>n_bins=10</code> to convert numerical features into categorical bins.</li>
             </ul>
-            <p>The data was split using <code>train_test_split</code> to create disjoint training and testing sets for valid evaluation. Below are sample images of prepared data:</p>
-          
-            <div class="image-container">
-                <img src="screenshots/dataset.png" alt="Dataset">
-                <p class="caption">Dataset before preprocessing</p>
-            </div>
-          
-            <div class="image-container">
-              <img src="Results/NB/mnb_train_test_data_scaled.png" alt="MNB Scaled Data">
-              <p class="caption">MinMax-scaled data for MultinomialNB</p>
-            </div>
-          
-            <div class="image-container">
-              <img src="Results/NB/gnb_train_test_data_scaled.png" alt="GNB Scaled Data">
-              <p class="caption">Standard-scaled data for GaussianNB</p>
-            </div>
-          
-            <div class="image-container">
-              <img src="Results/NB/cnb_train_test_data_scaled.png" alt="CNB Binned Data">
-              <p class="caption">KBins-discretized data for CategoricalNB</p>
-            </div>
-          
-            <h3>Model Results</h3>
-            <p><strong>Multinomial Naïve Bayes</strong></p>
+            
+            <p>The dataset was split into training and testing sets using an 80:20 ratio via <code>train_test_split</code> with a fixed <code>random_state</code> for reproducibility. Ensuring that the training and testing data are <strong>disjoint</strong> is essential to avoid data leakage and to get an honest estimate of model performance on unseen data.</p>
+            
+            <p>Sample datasets and the full source code are linked below:</p>
             <ul>
-              <li>Accuracy: 55.5%</li>
-              <li>AUC Score: 0.5812</li>
-              <li>Observation: Skewed recall; struggled with continuous data despite scaling</li>
+              <li>📄 <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">Data Samples</a></li>
+              <li>💻 <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/NB.ipynb" target="_blank">Full Modeling Code (Multinomial, Gaussian, and Categorical NB)</a></li>
             </ul>
+            
             <div class="image-container">
-              <img src="Results/NB/mnb_classification_report.png" alt="MNB Confusion Matrix">
+              <img src="screenshots/dataset.png" alt="Original Cleaned Dataset">
+              <p class="caption">Cleaned dataset before preprocessing (used across all NB models)</p>
+            </div>
+            
+            <div class="image-container">
+              <img src="Results/NB/mnb_train_test_data_scaled.png" alt="MinMax Scaled Data for MNB">
+              <p class="caption">MinMax-scaled training and testing data for MultinomialNB</p>
+            </div>
+            
+            <div class="image-container">
+              <img src="Results/NB/gnb_train_test_data_scaled.png" alt="Standard Scaled Data for GNB">
+              <p class="caption">Standard-scaled training and testing data for GaussianNB</p>
+            </div>
+            
+            <div class="image-container">
+              <img src="Results/NB/cnb_train_test_data_scaled.png" alt="Binned Data for CNB">
+              <p class="caption">KBins-discretized training and testing data for CategoricalNB</p>
+            </div>
+            
+            <h3>Results and Conclusions</h3>
+
+            <p>Three Naïve Bayes models were tested to predict wildfire occurrence using weather and soil features. Each model had different assumptions and required specific data preparation strategies. Performance was evaluated using accuracy, confusion matrices, and AUC scores.</p>
+            
+            <ul>
+              <li><strong>Multinomial Naïve Bayes (MNB):</strong> Accuracy: 55.5%, AUC: 0.5812. Although scaled using MinMaxScaler, it struggled with continuous features not suited for count-based modeling. Recall was skewed, especially underperforming on class 0.</li>
+            </ul>
+            
+            <div class="image-container">
+              <img src="Results/NB/mnb_classification_report.png" alt="MultinomialNB Confusion Matrix">
               <p class="caption">MultinomialNB confusion matrix and classification report</p>
             </div>
             <div class="image-container">
-              <img src="Results/NB/mnb_roc_auc.png" alt="MNB ROC Curve">
-              <p class="caption">ROC Curve for MultinomialNB</p>
+              <img src="Results/NB/mnb_roc_auc.png" alt="MultinomialNB ROC Curve">
+              <p class="caption">ROC Curve for MultinomialNB (AUC: 0.5812)</p>
             </div>
-          
-            <p><strong>Gaussian Naïve Bayes</strong></p>
+            
             <ul>
-              <li>Accuracy: 53.4%</li>
-              <li>AUC Score: 0.5832</li>
-              <li>Observation: Unbalanced recall; sensitive to normality assumptions</li>
+              <li><strong>Gaussian Naïve Bayes (GNB):</strong> Accuracy: 53.4%, AUC: 0.5832. While designed for continuous data, it showed highly imbalanced recall—very poor for class 0 (17%) and overly confident on class 1 (89%). This suggests the features were not normally distributed as required by GNB.</li>
             </ul>
+            
             <div class="image-container">
-              <img src="Results/NB/gnb_classification_report.png" alt="GNB Confusion Matrix">
+              <img src="Results/NB/gnb_classification_report.png" alt="GaussianNB Confusion Matrix">
               <p class="caption">GaussianNB confusion matrix and classification report</p>
             </div>
             <div class="image-container">
-              <img src="Results/NB/gnb_roc_auc.png" alt="GNB ROC Curve">
-              <p class="caption">ROC Curve for GaussianNB</p>
+              <img src="Results/NB/gnb_roc_auc.png" alt="GaussianNB ROC Curve">
+              <p class="caption">ROC Curve for GaussianNB (AUC: 0.5832)</p>
             </div>
-          
-            <p><strong>Categorical Naïve Bayes</strong></p>
+            
             <ul>
-              <li>Accuracy: 58.4%</li>
-              <li>AUC Score: 0.6250</li>
-              <li>Observation: Most balanced and accurate model; binning helped fit assumptions</li>
+              <li><strong>Categorical Naïve Bayes (CNB):</strong> Accuracy: 58.4%, AUC: 0.6250. After binning continuous features using KBinsDiscretizer, CNB provided the most balanced and accurate predictions. Precision, recall, and F1-score were comparable across both classes, making it the best-performing NB model for this dataset.</li>
             </ul>
+            
             <div class="image-container">
-              <img src="Results/NB/cnb_classification_report.png" alt="CNB Confusion Matrix">
+              <img src="Results/NB/cnb_classification_report.png" alt="CategoricalNB Confusion Matrix">
               <p class="caption">CategoricalNB confusion matrix and classification report</p>
             </div>
             <div class="image-container">
-                <img src="Results/NB/cnb_roc_auc.png" alt="CNB ROC Curve">
-                <p class="caption">ROC Curve for CategoricalNB</p>
+              <img src="Results/NB/cnb_roc_auc.png" alt="CategoricalNB ROC Curve">
+              <p class="caption">ROC Curve for CategoricalNB (AUC: 0.6250)</p>
             </div>
             
-            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/NB.ipynb" target="_blank">View Code</a></p>
-
-            <h3>Conclusions</h3>
-            <p>This comparative study revealed the importance of choosing the right Naïve Bayes variant based on the structure of the dataset. While MultinomialNB and GaussianNB showed limited performance due to mismatched assumptions, CategoricalNB benefited from preprocessing that transformed continuous features into discrete bins.</p>
-            <ul>
-              <li><strong>MultinomialNB:</strong> Struggled with non-count features even after scaling</li>
-              <li><strong>GaussianNB:</strong> Imbalanced predictions; likely affected by non-normal feature distributions</li>
-              <li><strong>CategoricalNB:</strong> Best-performing model due to alignment with feature encoding</li>
-            </ul>
-            <p>Ultimately, aligning data preparation with model expectations is key to optimizing performance. Naïve Bayes models are fast and effective when assumptions are met, and preprocessing can significantly influence outcomes.</p>
+            <p><strong>Conclusion:</strong> In the context of wildfire prediction, Categorical Naïve Bayes outperformed the other two by aligning with the transformed nature of the features. This study reinforced that selecting the correct Naïve Bayes variant—and properly preparing the data—is crucial. Although all three models are fast and interpretable, their performance depends heavily on how well the input features match their theoretical assumptions.</p>
         </div>
         
         <div id="decision-tree" class="tab-content">
@@ -1308,71 +1332,226 @@
             <p>Since features can be split repeatedly in different ways, <strong>an infinite number of unique trees can be created</strong> depending on data combinations, depth, and criteria.</p>
           
             <h3>Data Preparation</h3>
-            <p>Decision Trees do not require feature scaling or standardization, making them straightforward to implement. I reused the same cleaned and preprocessed dataset used for Naïve Bayes without additional scaling.</p>
-          
-            <p>Data was split using <code>train_test_split</code> into training and testing sets (80:20 ratio). This ensures that evaluation is based on unseen data, preventing data leakage.</p>
-          
+            <p>Decision Trees are non-parametric models and do not require feature scaling or standardization. Therefore, I reused the same cleaned dataset prepared for Naïve Bayes modeling, without applying any additional transformations.</p>
+            
+            <p>The labeled dataset was split into training and testing sets using an 80:20 ratio via <code>train_test_split</code>, with a fixed <code>random_state</code> to ensure reproducibility. This split is disjoint, meaning that no data from the training set appears in the test set. This is important for properly evaluating the model's ability to generalize to unseen data and to avoid any form of data leakage.</p>
+            
+            <ul>
+              <li>📄 <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Sample Training and Testing Dataset</a></li>
+              <li>📄 <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/decisionTree.ipynb" target="_blank">View Full Code</a></li>
+            </ul>
+            
             <div class="image-container">
-                <img src="screenshots/dataset.png" alt="Dataset">
-                <p class="caption">Dataset before preprocessing</p>
+              <img src="screenshots/dataset.png" alt="Dataset Before Modeling">
+              <p class="caption">Cleaned wildfire dataset used for Decision Tree modeling</p>
             </div>
-          
+            
             <div class="image-container">
-              <img src="Results/Decision Tree/X_train.png" alt="Train-Test Split">
-              <img src="Results/Decision Tree/X_test.png" alt="Train-Test Split">
-              <p class="caption">Training and testing sets generated using scikit-learn</p>
+              <img src="Results/Decision Tree/X_train.png" alt="X_train">
+              <img src="Results/Decision Tree/X_test.png" alt="X_test">
+              <p class="caption">Disjoint training and testing sets created using <code>train_test_split</code></p>
             </div>
-          
-            <h3>Modeling and Code</h3>
-            <p>The basline model was overfitting with a training accuracy of 99.8% and a testing accuracy of 80.06%. We can clearly see there is a huge difference between accuracy on training and test dataset. To prevent
-                overfitting I used a controlled model by changing the parameters of the model.
-            </p>
-            <p>Three different decision trees were built by tuning parameters such as <code>max_depth</code>, <code>min_samples_split</code>, and <code>criterion</code>. The trees were constructed using scikit-learn’s <code>DecisionTreeClassifier</code>.</p>
-          
-            <p>Full code is available on GitHub: <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/decisionTree.ipynb" target="_blank">View Code</a></p>
-          
+            
             <h3>Model Results</h3>
-            <p>The decision tree model achieved the following metrics:</p>
+            <p>The default Decision Tree model significantly overfit the data, with training accuracy of 99.8% and testing accuracy of 80.06%. To address this, I trained three different Decision Trees with controlled depth, different hyperparameters, and varied feature subsets to promote generalization and diverse root splits.</p>
+            
+            <p><strong>Each tree was trained with a unique configuration:</strong></p>
             <ul>
-              <li><strong>Training Accuracy:</strong> 79.9%</li>
-              <li><strong>Testing Accuracy:</strong> 75.9%</li>
-              <li><strong>AUC Score:</strong> 0.82</li>
-              <li><strong>Observation:</strong> The model generalizes well, with minimal overfitting. It performed better than Naïve Bayes models.</li>
+              <li>Tree 1: Criterion = Gini, depth-limited, balanced parameters</li>
+              <li>Tree 2: Criterion = Entropy, different feature subset</li>
+              <li>Tree 3: Feature decorrelation using correlation matrix filtering</li>
             </ul>
-          
+            
+            <h4>Decision Tree 1</h4>
+            <ul>
+              <li><strong>Training Accuracy:</strong> 69.4%</li>
+              <li><strong>Testing Accuracy:</strong> 66.87%</li>
+              <li><strong>AUC Score:</strong> 0.73</li>
+              <li><strong>Observation:</strong> Generalized well with minimal overfitting. Performed better than Naïve Bayes models.</li>
+            </ul>
+            
             <div class="image-container">
-              <img src="Results/Decision Tree/dt_accuracy.png" alt="DT Accuracy">
-              <p class="caption">Training vs. Testing Accuracy for Decision Tree</p>
+              <img src="Results/Decision Tree/dt_tree1_accuracy.png" alt="DT Accuracy 1">
+              <p class="caption">Training vs. Testing Accuracy for Decision Tree 1</p>
             </div>
-          
             <div class="image-container">
-              <img src="Results/Decision Tree/dt_classification_report.png" alt="DT Classification Report">
-              <p class="caption">Confusion Matrix and Classification Report for Decision Tree</p>
+              <img src="Results/Decision Tree/dt_tree1_classification_report.png" alt="DT Classification Report 1">
+              <p class="caption">Confusion Matrix and Classification Report for Tree 1</p>
             </div>
-          
             <div class="image-container">
-              <img src="Results/Decision Tree/dt_roc_auc.png" alt="DT ROC Curve">
-              <p class="caption">ROC Curve for Decision Tree with AUC = 0.82</p>
+              <img src="Results/Decision Tree/dt_tree1_roc_auc.png" alt="DT ROC Curve 1">
+              <p class="caption">ROC Curve for Tree 1 (AUC = 0.73)</p>
             </div>
-          
+            
+            <h4>Decision Tree 2</h4>
+            <ul>
+              <li><strong>Training Accuracy:</strong> 67.7%</li>
+              <li><strong>Testing Accuracy:</strong> 64.2%</li>
+              <li><strong>AUC Score:</strong> 0.69</li>
+              <li><strong>Observation:</strong> Slightly lower AUC but still balanced. Used entropy criterion and a different feature subset for diversity.</li>
+            </ul>
+            
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree2_accuracy.png" alt="DT Accuracy 2">
+              <p class="caption">Training vs. Testing Accuracy for Decision Tree 2</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree2_classification_report.png" alt="DT Classification Report 2">
+              <p class="caption">Confusion Matrix and Classification Report for Tree 2</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree2_roc_auc.png" alt="DT ROC Curve 2">
+              <p class="caption">ROC Curve for Tree 2 (AUC = 0.69)</p>
+            </div>
+            
+            <h4>Decision Tree 3</h4>
+            <ul>
+              <li><strong>Training Accuracy:</strong> 73.8%</li>
+              <li><strong>Testing Accuracy:</strong> 71.02%</li>
+              <li><strong>AUC Score:</strong> 0.77</li>
+              <li><strong>Observation:</strong> Performed the best in terms of generalization. Trained on uncorrelated features, resulting in a different root split and better AUC.</li>
+            </ul>
+            
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree3_accuracy.png" alt="DT Accuracy 3">
+              <p class="caption">Training vs. Testing Accuracy for Decision Tree 3</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree3_classification_report.png" alt="DT Classification Report 3">
+              <p class="caption">Confusion Matrix and Classification Report for Tree 3</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree3_roc_auc.png" alt="DT ROC Curve 3">
+              <p class="caption">ROC Curve for Tree 3 (AUC = 0.77)</p>
+            </div>
+            
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree1.png" alt="Tree 1">
+              <img src="Results/Decision Tree/dt_tree2.png" alt="Tree 2">
+              <img src="Results/Decision Tree/dt_tree3.png" alt="Tree 3">
+              <p class="caption">Visualizations of all three decision trees with different root nodes and configurations</p>
+            </div>
+            
             <h3>Conclusions</h3>
-            <p>Decision Trees offered superior performance over Naïve Bayes models in both accuracy and AUC. The model was interpretable, fast, and did not require feature scaling.</p>
+            <p>Decision Trees provided significantly better performance than Naïve Bayes models for wildfire prediction. The key takeaways include:</p>
             <ul>
-              <li>The balance between bias and variance was managed effectively using hyperparameter tuning.</li>
-              <li>Class 1 had higher recall, indicating strong detection of positive cases in our fire prediction problem.</li>
-              <li>The visualizations and metrics confirm that Decision Trees are a solid choice for this dataset.</li>
+              <li><strong>Interpretability:</strong> Visual trees helped identify key features contributing to fire prediction.</li>
+              <li><strong>Performance:</strong> All three models showed solid generalization with AUCs ranging from 0.69 to 0.77.</li>
+              <li><strong>Customization:</strong> Varying depth, criterion, and feature sets led to different root nodes and decision paths, improving insight.</li>
+              <li><strong>Class Detection:</strong> Recall for class 1 (fires) was consistently strong, showing the model’s ability to flag fire risk.</li>
             </ul>
+            <p><strong>Conclusion:</strong> By tuning hyperparameters and input features, Decision Trees became an interpretable and effective tool for wildfire classification, balancing performance and clarity.</p>
         </div>
 
         <div id="regression" class="tab-content">
-            <h3>Overview</h3>
-            <p>Linear Regression is a machine learning algorithm used to predict a continuous value based on input features. It fits a straight line through the data by finding the best values for the slope and intercept that minimize prediction errors. The line represents the relationship between inputs and the output. The model is trained using a method called least squares, which reduces the difference between actual and predicted values</p>
-            <p>Logistic Regression: Logistic regression is used to predict categories, typically yes/no or 0/1 outcomes. It calculates a linear combination of the input features and passes the result through a sigmoid function to get a probability. This probability is used to classify the input. The closer the output is to 1, the more confident the model is in predicting the positive class.</p>
-            <p>Both use a linear combination of input features to make predictions. The difference is in what they predict: linear regression outputs numbers, logistic regression outputs probabilities for categories. Linear regression uses least squares to fit a line, while logistic regression uses a method called maximum likelihood to find the best model.</p>
-            <p>Logistic regression uses the sigmoid function to convert the linear result into a probability between 0 and 1. This makes it possible to classify inputs based on how likely they belong to a certain category.</p>
-            <p>Logistic regression is trained using maximum likelihood estimation, which means it finds the model parameters that make the observed data most probable. This method adjusts the model so that the predicted probabilities are as close as possible to the actual class labels in the training data.</p>
-        </div>
+            <h2>Regression Overview</h2>
 
+            <h3>(a) What is Linear Regression?</h3>
+            <p>Linear Regression is a supervised learning algorithm used to predict a continuous output variable based on one or more input features. It assumes a linear relationship between the independent variables (features) and the dependent variable (target). The model fits a straight line by minimizing the sum of squared differences between actual and predicted values. This is known as the least squares method.</p>
+          
+            <h3>(b) What is Logistic Regression?</h3>
+            <p>Logistic Regression is a classification algorithm used to predict binary outcomes (e.g., 0 or 1, true or false). It computes a linear combination of input features and applies the sigmoid function to produce probabilities between 0 and 1. Based on a defined threshold (commonly 0.5), it classifies inputs into one of the two categories. Logistic regression is widely used in medical diagnoses, risk prediction, and binary classification tasks.</p>
+          
+            <h3>(c) Similarities and Differences</h3>
+            <p>Both Linear and Logistic Regression use a linear combination of input features and are trained using labeled data. The key difference is that Linear Regression predicts continuous numerical values, while Logistic Regression predicts probabilities for classification. Linear Regression uses least squares for optimization, while Logistic Regression uses Maximum Likelihood Estimation. Additionally, Logistic Regression includes a non-linear transformation (sigmoid) to map values between 0 and 1.</p>
+          
+            <h3>(d) Sigmoid Function in Logistic Regression</h3>
+            <p>Yes, Logistic Regression uses the sigmoid function to map the raw output of the linear model into a probability between 0 and 1. This is essential for classification because it interprets the output as the probability of belonging to the positive class. The sigmoid function is defined as 1 / (1 + e^-z), where z is the linear combination of inputs.</p>
+          
+            <h3>(e) Maximum Likelihood in Logistic Regression</h3>
+            <p>Logistic Regression uses Maximum Likelihood Estimation (MLE) to estimate model parameters. MLE finds the set of weights that maximize the likelihood of observing the actual labels in the training data. Instead of minimizing error, this approach focuses on making the predicted probabilities closely match the true class labels. It is optimized using gradient descent or related techniques.</p>
+                    
+            <h3>Data Preparation</h3>
+            <p>We used the same cleaned and labeled dataset from the Naïve Bayes analysis. It contains only two output categories (fire = 0 or 1), making it ideal for binary classification. The dataset was split using an 80:20 ratio into training and testing sets with <code>random_state=42</code> to ensure reproducibility. The split is disjoint to prevent data leakage and ensure honest performance evaluation.</p>
+            
+            <p>Before modeling with Logistic Regression, we standardized all feature values using <code>StandardScaler</code>. This step was crucial for Logistic Regression to ensure that all features contribute proportionally. The same scaling was used for Gaussian Naïve Bayes as well. You can preview the data and transformation below.</p>
+            
+            <div class="image-container">
+              <img src="Results/NB/gnb_train_test_data_scaled.png" alt="Standard Scaled Train Data">
+              <p class="caption">Standard-scaled training and testing dataset used for logistic regression</p>
+            </div>
+            
+            <p>🔗 <strong>Data and Code:</strong></p>
+            <ul>
+              <li><a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Dataset</a></li>
+              <li><a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/regression.ipynb" target="_blank">View Full Code (Logistic Regression)</a></li>
+            </ul>
+            
+            <h3>Model Results</h3>
+            
+            <h4>Logistic Regression</h4>
+            <ul>
+              <li><strong>Accuracy:</strong> 65.45%</li>
+              <li><strong>AUC Score:</strong> 0.70</li>
+            </ul>
+            
+            <div class="image-container">
+              <img src="Results/Regression/regression_accuracy.png" alt="Logistic Regression Accuracy">
+              <p class="caption">Training vs. Testing Accuracy for Logistic Regression</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/Regression/regression_classification_report.png" alt="Logistic Regression Classification Report">
+              <p class="caption">Confusion Matrix and Classification Report for Logistic Regression</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/Regression/regression_roc_auc.png" alt="Logistic Regression ROC Curve">
+              <p class="caption">ROC Curve showing AUC = 0.70 for Logistic Regression</p>
+            </div>
+            
+            <h3>Model Comparison: Logistic Regression vs MultinomialNB vs Decision Tree</h3>
+            
+            <h4>Multinomial Naïve Bayes</h4>
+            <ul>
+              <li><strong>Accuracy:</strong> 55.5%</li>
+              <li><strong>AUC Score:</strong> 0.5812</li>
+              <li><strong>Observation:</strong> Performed poorly on continuous features, even after MinMax scaling. Lower recall and F1-scores indicate poor generalization.</li>
+            </ul>
+            
+            <div class="image-container">
+              <img src="Results/NB/mnb_accuracy.png" alt="MultinomialNB Accuracy">
+              <p class="caption">Training vs. Testing Accuracy for MultinomialNB</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/NB/mnb_classification_report.png" alt="MNB Confusion Matrix">
+              <p class="caption">Confusion Matrix and Classification Report for MultinomialNB</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/NB/mnb_roc_auc.png" alt="MNB ROC Curve">
+              <p class="caption">ROC Curve showing AUC = 0.5812 for MultinomialNB</p>
+            </div>
+            
+            <h4>Decision Tree</h4>
+            <ul>
+              <li><strong>Accuracy:</strong> 71.02%</li>
+              <li><strong>AUC Score:</strong> 0.77</li>
+              <li><strong>Observation:</strong> Stronger performance than NB and Logistic Regression. More flexible and interpretable, though sensitive to hyperparameters.</li>
+            </ul>
+            
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree3_accuracy.png" alt="Decision Tree Accuracy">
+              <p class="caption">Training vs. Testing Accuracy for Decision Tree</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree3_classification_report.png" alt="Decision Tree Confusion Matrix">
+              <p class="caption">Confusion Matrix and Classification Report for Decision Tree</p>
+            </div>
+            <div class="image-container">
+              <img src="Results/Decision Tree/dt_tree3_roc_auc.png" alt="Decision Tree ROC Curve">
+              <p class="caption">ROC Curve showing AUC = 0.77 for Decision Tree</p>
+            </div>
+            
+            <h3>Conclusions</h3>
+            <p><strong>Which model worked best?</strong> Among the three, the <strong>Decision Tree</strong> delivered the highest AUC and a strong balance of accuracy and recall. Logistic Regression also performed well, particularly due to standardized feature inputs, but slightly underperformed compared to the tree. Multinomial Naïve Bayes struggled because its assumptions did not align with the dataset's continuous features, even after scaling.</p>
+            
+            <ul>
+              <li>Decision Trees were most effective due to their flexibility and non-linear splits.</li>
+              <li>Logistic Regression was a good baseline model, especially after feature scaling.</li>
+              <li>MultinomialNB is better suited for count-based or categorical data, not continuous environmental features.</li>
+            </ul>
+            
+            <p><strong>Overall Insight:</strong> For wildfire classification based on weather and soil conditions, Decision Trees provided the best trade-off between interpretability and predictive performance.</p>
+        </div>
+          
         <style>
             .collage {
                 display: grid;
