@@ -1850,7 +1850,8 @@
         <div id="ensemble" class="tab-content">
             <h2>Ensemble Learning Overview</h2>
         
-            <p>Ensemble learning is a technique in machine learning where multiple models (weak learners) are combined to solve a problem and improve overall performance. By aggregating the predictions of several models, ensemble methods achieve better results than any single model by itself.</p>
+            <p>Ensemble learning is a technique in machine learning where multiple models (weak learners) are combined to solve a problem and improve overall performance. By 
+                aggregating the predictions of several models, ensemble methods achieve better results than any single model by itself.</p>
         
             <p>There are several common ensemble techniques:</p>
             <ul>
@@ -1865,19 +1866,25 @@
                 <p class="caption">Ensemble learning combines multiple models to achieve better generalization</p>
             </div>
         
-            <h3>(a) Method Used: Random Forest and XGBoost</h3>
-            <p>I explored both <strong>Random Forest</strong> (a bagging method) and <strong>XGBoost</strong> (a boosting method). Random Forest is an ensemble of decision trees trained on random subsets of data with feature bagging which reduces overfitting. XGBoost (Extreme Gradient Boosting) builds trees sequentially with optimized gradient descent. This often gives a ver good accuracy but has a high risk of overfitting.</p>
+            <h3>Methods Used: Random Forest and XGBoost</h3>
+            <p>I explored both <strong>Random Forest</strong> (a bagging method) and <strong>XGBoost</strong> (a boosting method). Random Forest is an ensemble of decision trees 
+                trained on random subsets of data with feature bagging which reduces overfitting. XGBoost (Extreme Gradient Boosting) builds trees sequentially with optimized 
+                gradient descent. This often gives a very good accuracy but has a high risk of overfitting.</p>
         
             <p>
                 🔗 <strong>Code and Dataset:</strong><br>
                 <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Dataset</a> | 
-                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/Xgboost.ipynb" target="_blank">View Ensemble Code</a>
-                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/RandomForest.ipynb" target="_blank">View Ensemble Code</a>
+                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/Xgboost.ipynb" target="_blank">View Xgboost Code</a>
+                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/RandomForest.ipynb" target="_blank">View Random Forest Code</a>
             </p>
         
-            <h3>(b) Data Preparation</h3>
+            <h3>Data Preparation</h3>
             <p>The same cleaned and labeled dataset was used which was used for other supervised learning models. It contains binary class labels (fire = 0 or 1) and features derived from weather and soil conditions. The dataset was split in an 80:20 ratio, and all numeric features were standardized using <code>StandardScaler</code>. There were no missing values after preprocessing.</p>
         
+            <div class="image-container">
+                <img src="Images/Ensemble/ensemble_train_data.png" alt="Train Dataset Preview">
+                <p class="caption">Preview of the standardized training dataset used in Random Forest and XGBoost</p>
+            </div>
             <div class="image-container">
                 <img src="Images/Ensemble/ensemble_train_data.png" alt="Train Dataset Preview">
                 <p class="caption">Preview of the standardized training dataset used in Random Forest and XGBoost</p>
@@ -1887,40 +1894,106 @@
                 <p class="caption">Testing dataset prepared from 20% holdout split</p>
             </div>
         
-            <h3>(c) Results & Evaluation</h3>
+            <h3>Results & Evaluation</h3>
         
-            <h4>Random Forest Classifier</h4>
-            <ul>
-                <li><strong>Accuracy:</strong> 72.8%</li>
-                <li><strong>ROC-AUC:</strong> 0.79</li>
-                <li><strong>F1-Score:</strong> 0.73</li>
-            </ul>
-            <div class="image-container">
-                <img src="Images/Ensemble/rf_cm.png" alt="Confusion Matrix - Random Forest">
+            <h4>Random Forest: Baseline vs Tuned Model Comparison</h4>
+            <table border="1" cellpadding="8" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Baseline RF</th>
+                  <th>Tuned RF</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Training Accuracy</td>
+                  <td>86.80%</td>
+                  <td><strong>91.82%</strong></td>
+                </tr>
+                <tr>
+                  <td>Testing Accuracy</td>
+                  <td>81.15%</td>
+                  <td><strong>83.45%</strong></td>
+                </tr>
+                <tr>
+                  <td>Precision</td>
+                  <td>81.90%</td>
+                  <td><strong>84.18%</strong></td>
+                </tr>
+                <tr>
+                  <td>Recall</td>
+                  <td>81.15%</td>
+                  <td><strong>83.45%</strong></td>
+                </tr>
+                <tr>
+                  <td>F1 Score</td>
+                  <td>81.02%</td>
+                  <td><strong>83.35%</strong></td>
+                </tr>
+                <tr>
+                  <td>ROC AUC</td>
+                  <td>0.8899</td>
+                  <td><strong>0.9130</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            div class="image-container">
+                <img src="Results/Random Forest/rf_conf_matrix.png" alt="Confusion Matrix - Random Forest">
                 <p class="caption">Random Forest Confusion Matrix</p>
             </div>
             <div class="image-container">
-                <img src="Images/Ensemble/rf_roc.png" alt="ROC Curve - Random Forest">
-                <p class="caption">ROC Curve for Random Forest (AUC = 0.79)</p>
+                <img src="Results/Random Forest/rf_auc_roc.png" alt="ROC Curve - Random Forest">
+                <p class="caption">ROC Curve for Random Forest (AUC = 0.91)</p>
             </div>
         
-            <h4>XGBoost Classifier</h4>
-            <ul>
-                <li><strong>Accuracy:</strong> 75.3%</li>
-                <li><strong>ROC-AUC:</strong> 0.82</li>
-                <li><strong>F1-Score:</strong> 0.75</li>
-            </ul>
+            <h4>XGBoost Classifier Comparison</h4>
+            <table border="1" cellpadding="8" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Training Accuracy</th>
+                  <th>Testing Accuracy</th>
+                  <th>Precision</th>
+                  <th>Recall</th>
+                  <th>F1 Score</th>
+                  <th>ROC AUC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Baseline XGBoost</td>
+                  <td>87.24%</td>
+                  <td>83.29%</td>
+                  <td>84.16%</td>
+                  <td>83.29%</td>
+                  <td>83.17%</td>
+                  <td>0.8995</td>
+                </tr>
+                <tr>
+                  <td><strong>Tuned XGBoost</strong></td>
+                  <td><strong>98.61%</strong></td>
+                  <td><strong>87.14%</strong></td>
+                  <td><strong>87.42%</strong></td>
+                  <td><strong>87.14%</strong></td>
+                  <td><strong>87.11%</strong></td>
+                  <td><strong>0.9352</strong></td>
+                </tr>
+              </tbody>
+            </table>
             <div class="image-container">
-                <img src="Images/Ensemble/xgb_cm.png" alt="Confusion Matrix - XGBoost">
+                <img src="Results/XGBoost/conf_matrix.png" alt="Confusion Matrix - XGBoost">
                 <p class="caption">Confusion Matrix for XGBoost</p>
             </div>
             <div class="image-container">
-                <img src="Images/Ensemble/xgb_roc.png" alt="ROC Curve - XGBoost">
-                <p class="caption">ROC Curve for XGBoost (AUC = 0.82)</p>
+                <img src="Results/XGBoost/roc_curve.png" alt="ROC Curve - XGBoost">
+                <p class="caption">ROC Curve for XGBoost (AUC = 0.935)</p>
             </div>
         
-            <h3>(d) Non-Technical Summary</h3>
-            <p>Both ensemble models significantly improved wildfire prediction compared to single classifiers like Logistic Regression and Naïve Bayes. The key advantage of ensemble models is their ability to "average out" the errors of individual models. XGBoost slightly outperformed Random Forest in both accuracy and AUC, making it the most effective model tested for this classification task.</p>
+            <h3>Non-Technical Summary</h3>
+            <p>Both ensemble models significantly improved wildfire prediction compared to single classifiers like Logistic Regression and Naïve Bayes. The key advantage of ensemble 
+                models is their ability to "average out" the errors of individual models. XGBoost slightly outperformed Random Forest in both accuracy and AUC, making it the most 
+                effective model tested for this classification task.</p>
         
             <ul>
                 <li><strong>Random Forest</strong> is easier to train and less sensitive to parameters.</li>
@@ -1929,7 +2002,7 @@
             </ul>
         
             <div class="image-container">
-                <img src="Images/Ensemble/feature_importance_xgb.png" alt="Feature Importance XGBoost">
+                <img src="Results/XGBoost/feature_importance.png" alt="Feature Importance XGBoost">
                 <p class="caption">Top features influencing wildfire predictions according to XGBoost</p>
             </div>
         
@@ -1938,17 +2011,29 @@
         </div>
         
         <div id="conclusion" class="tab-content">
+
             <h2>Final Conclusion</h2>
           
-            <p>Wildfires are devastating natural events that not only destroy vast areas of forest and property but also disrupt communities and threaten lives. This project aimed to explore whether machine learning could be used to predict wildfire occurrence using environmental and weather-related data. Through our journey, we worked with historical measurements such as soil moisture, wind speed, evapotranspiration, and temperature to understand their influence on fire risk.</p>
+            <p>Wildfires are devastating natural events that destroy vast areas of forest and property but also disrupt communities and threaten lives. This project aimed to explore 
+                whether machine learning could be used to predict wildfire occurrence using environmental and weather-related data. I worked with historical measurements such as soil 
+                moisture, wind speed, evapotranspiration, and temperature to understand their influence on fire risk.</p>
           
-            <p>We trained and evaluated several models including Logistic Regression, Naïve Bayes, Decision Trees, Random Forests, and XGBoost. Among them, XGBoost performed the best, achieving a test accuracy of over 87%. It was particularly good at identifying complex patterns by combining many small decisions into a strong overall prediction. This means that the model could predict the likelihood of a wildfire with high confidence by observing conditions like high evapotranspiration and dry soil at certain depths.</p>
+            <p>I trained and evaluated several models including Logistic Regression, Naïve Bayes, Decision Trees, Random Forests, and XGBoost. Among them, XGBoost performed the best, 
+                achieving a test accuracy of over 87%. It was good at identifying complex patterns by combining many small decisions into a strong overall prediction. 
+                This means that the model could predict the likelihood of a wildfire with high confidence by observing conditions like high evapotranspiration and dry soil at certain 
+                depths.</p>
           
-            <p>One of the most important discoveries was that certain features consistently emerged as highly influential: evapotranspiration, soil temperature, and mid-level cloud cover. These findings align with what scientists already know about fire ecology: dry, hot conditions with strong evaporation create ideal conditions for wildfires. These models essentially confirmed this intuition and gave us a data-backed way to predict when those conditions are present.</p>
+            <p>One of the most important discoveries was that certain features consistently emerged as highly influential like evapotranspiration, soil temperature, and mid-level cloud 
+                cover. These findings align with what scientists already know about fire ecology: dry, hot conditions with strong evaporation create ideal conditions for wildfires. 
+                These models confirmed this intuition and gave us a way to predict when those conditions are present.</p>
           
-            <p>In addition to prediction, the models also helped us understand how various environmental conditions interact. By visualizing feature importance and decision boundaries, we could see how the model prioritized and weighted different inputs. This kind of insight can help policymakers and emergency services focus on the most important signals when monitoring for fire risk in real time.</p>
+            <p>The models also helped us understand how various environmental conditions interact. By visualizing feature importance and decision boundaries, we could see how the 
+                model prioritized and weighted different inputs. Thess kind of insights can help policymakers and emergency services focus on the most important features when 
+                monitoring for fire risk in real time.</p>
           
-            <p>In conclusion, this project highlights the power of artificial intelligence to support wildfire preparedness. While no model can completely prevent a natural disaster, tools like these can help reduce the damage by enabling early detection and more targeted resource allocation. With further refinement and real-time data feeds, such models can become valuable components in wildfire early warning systems.</p>
+            <p>In conclusion, this project highlights the use of data science to support wildfire preparedness. While no model can completely prevent a natural disaster, tools like 
+                these can help reduce the damage by enabling early detection and more targeted resource allocation. With further refinement and real-time data feeds, such models can 
+                become valuable in wildfire early warning systems.</p>
           
             <div class="image-container">
               <img src="Results/XGBoost/feature_importance.png" alt="Feature Importance XGBoost">
@@ -1959,7 +2044,7 @@
               <img src="Results/XGBoost/roc_curve.png" alt="ROC Curve XGBoost">
               <p class="caption">ROC Curve showing performance of the final XGBoost model</p>
             </div>
-          </div>
+        </div>
           
           
         <style>
