@@ -16,7 +16,6 @@
             <div class="tab" onclick="showTab('arm')">ARM</div>
             <div class="tab" onclick="showTab('svm')">Support Vector Machine</div>
             <div class="tab" onclick="showTab('decision-tree')">Decision Tree</div>
-            <div class="tab" onclick="showTab('rf')">Random Forest</div>
             <div class="tab" onclick="showTab('naive-bayes')">Naive Bayes</div>
             <div class="tab" onclick="showTab('regression')">Regression</div>
             <div class="tab" onclick="showTab('ensemble')">Ensemble</div>
@@ -1142,7 +1141,8 @@
           
         <div id="naive-bayes" class="tab-content">
             <h2>Overview</h2>
-            <p><strong>Naïve Bayes (NB)</strong> is a family of probabilistic classifiers based on Bayes’ Theorem with the assumption that features are conditionally independent given the class. Despite this simplification, Naïve Bayes models perform well in many real-world applications, particularly when working with high-dimensional data.</p>
+            <p><strong>Naïve Bayes (NB)</strong> is a family of probabilistic classifiers based on Bayes’ Theorem. It works on the assumption that features are conditionally independent given 
+                the class. Despite this simplification, Naïve Bayes models perform well in many real-world applications, particularly when working with high-dimensional data.</p>
             
             <p>Naïve Bayes is commonly used for:</p>
             <ul>
@@ -1155,12 +1155,13 @@
             <p><strong>Advantages:</strong> Fast to train, simple to implement, works well on small datasets, and scalable to large feature spaces.</p>
             
             <h3>Types of Naïve Bayes Classifiers in Scikit-learn</h3>
-            <p>Scikit-learn provides multiple Naïve Bayes variants, each suited to specific feature types:</p>
+            <p>Scikit-learn provides multiple Naïve Bayes variants and each of them require different types of data:</p>
             <ul>
-              <li><strong>Multinomial Naïve Bayes (MNB):</strong> Designed for count data such as word frequencies in text documents. Suitable for NLP tasks like spam detection or topic classification.</li>
-              <li><strong>Gaussian Naïve Bayes (GNB):</strong> Assumes features are normally distributed. Works best with continuous features like temperature or sensor readings.</li>
-              <li><strong>Bernoulli Naïve Bayes:</strong> Best for binary/boolean features (e.g., presence or absence of a word). Used in binary text data and sentiment analysis with binary indicators.</li>
-              <li><strong>Categorical Naïve Bayes (CNB):</strong> Works with discrete categorical features (e.g., color: red, blue). Ideal for demographic or ordinal-encoded data.</li>
+              <li><strong>Multinomial Naïve Bayes (MNB):</strong> Designed for count data such as word frequencies in text documents. Suitable for NLP tasks like spam detection or 
+                topic classification.</li>
+              <li><strong>Gaussian Naïve Bayes (GNB):</strong> Assumes features are normally distributed and works the best with continuous features like temperature or sensor readings.</li>
+              <li><strong>Bernoulli Naïve Bayes:</strong> Best for binary/boolean features. Used in binary text data and sentiment analysis with binary indicators.</li>
+              <li><strong>Categorical Naïve Bayes (CNB):</strong> Works with discrete categorical features like red and blue. Works will with ordinal data.</li>
             </ul>
             
             <div class="image-container">
@@ -1291,180 +1292,165 @@
               <p class="caption">ROC Curve for CategoricalNB (AUC: 0.6250)</p>
             </div>
             
-            <p><strong>Conclusion:</strong> In the context of wildfire prediction, Categorical Naïve Bayes outperformed the other two by aligning with the transformed nature of the features. This study reinforced that selecting the correct Naïve Bayes variant—and properly preparing the data—is crucial. Although all three models are fast and interpretable, their performance depends heavily on how well the input features match their theoretical assumptions.</p>
+            <p><strong>Conclusion:</strong>Categorical Naïve Bayes performed better than the the other two models. This shows that selecting the correct Naïve Bayes variant and 
+                data preprocessing is crucial. All the three models are fast and easily interpretable and their performance depends heavily on how well the input features match 
+                their theoretical assumptions.</p>
         </div>
         
         <div id="decision-tree" class="tab-content">
             <h2>Decision Tree Overview</h2>
-            <p><strong>Decision Trees (DTs)</strong> are supervised machine learning models used for classification and regression tasks. They work by recursively splitting the data into subsets based on feature values, resulting in a tree-like model of decisions.</p>
           
-            <p>Decision Trees are intuitive and interpretable, making them popular for applications like:</p>
+            <p><strong>Decision Trees (DTs)</strong> are supervised machine learning models that split data into smaller and smaller groups based on feature values, like asking a series of yes/no questions. Each split aims to group similar outcomes together, forming a tree-like structure of decisions.</p>
+          
+            <p>They are popular because they are intuitive and easy to visualize. You can follow the path from root to leaf to understand how a prediction is made. They are used in many fields, including:</p>
             <ul>
-              <li>Credit scoring</li>
               <li>Medical diagnosis</li>
               <li>Fraud detection</li>
               <li>Customer segmentation</li>
+              <li>Credit scoring</li>
             </ul>
           
             <div class="image-container">
               <img src="Results/Decision Tree/sample_tree.png" alt="Example Decision Tree">
-              <p class="caption">Sample decision tree structure showing feature-based splits</p>
+              <p class="caption">Sample decision tree showing how questions split the data</p>
             </div>
           
             <div class="image-container">
               <img src="Results/Decision Tree/real_tree.png" alt="Real Decision Tree Output">
-              <p class="caption">Visual output of a trained decision tree classifier</p>
+              <p class="caption">Actual output from a trained decision tree classifier on wildfire data</p>
             </div>
           
-            <h3>Splitting Criteria: GINI, Entropy, and Information Gain</h3>
-            <p>Decision Trees use criteria like <strong>Gini Impurity</strong> and <strong>Entropy</strong> to determine the best split. These metrics measure the impurity or uncertainty in the dataset.</p>
-          
+            <h3>Splitting Criteria</h3>
+            <p>Decision Trees decide where to split using metrics like:</p>
             <ul>
-              <li><strong>Gini Impurity:</strong> Measures the likelihood of incorrect classification of a randomly chosen element. Formula: <code>Gini = 1 - ∑(p_i^2)</code></li>
-              <li><strong>Entropy:</strong> Measures the disorder or impurity. Formula: <code>Entropy = -∑(p_i * log2(p_i))</code></li>
-              <li><strong>Information Gain:</strong> The reduction in entropy or impurity from a split. It helps in selecting the attribute that best separates the samples.</li>
+              <li><strong>Gini Impurity:</strong> How often a randomly chosen item would be incorrectly classified.</li>
+              <li><strong>Entropy:</strong> Measures randomness or disorder in the data.</li>
+              <li><strong>Information Gain:</strong> How much impurity is reduced after a split.</li>
             </ul>
           
-            <p><strong>Example:</strong> Assume a binary classification dataset with 8 positive and 4 negative examples. Entropy before a split is:</p>
+            <p><strong>Example Calculation:</strong></p>
             <pre>Entropy = - (8/12)*log2(8/12) - (4/12)*log2(4/12) ≈ 0.918</pre>
-            <p>If a split divides data into subsets with entropy values of 0.811 and 0.0, Information Gain is:</p>
+            <p>If a split creates two parts with lower entropy, the Information Gain tells us how useful the split is:</p>
             <pre>IG = 0.918 - (9/12)*0.811 - (3/12)*0.0 = 0.309</pre>
           
-            <p>Since features can be split repeatedly in different ways, <strong>an infinite number of unique trees can be created</strong> depending on data combinations, depth, and criteria.</p>
-          
             <h3>Data Preparation</h3>
-            <p>Decision Trees are non-parametric models and do not require feature scaling or standardization. Therefore, I reused the same cleaned dataset prepared for Naïve Bayes modeling, without applying any additional transformations.</p>
-            
-            <p>The labeled dataset was split into training and testing sets using an 80:20 ratio via <code>train_test_split</code>, with a fixed <code>random_state</code> to ensure reproducibility. This split is disjoint, meaning that no data from the training set appears in the test set. This is important for properly evaluating the model's ability to generalize to unseen data and to avoid any form of data leakage.</p>
-            
+            <p>Since Decision Trees don’t require scaled features, the cleaned wildfire dataset was reused as-is. It contains weather and soil-based predictors with fire occurrence (0 or 1) as the target. The data was split 80:20 into training and testing sets with no overlap.</p>
+          
             <ul>
-              <li>📄 <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Sample Training and Testing Dataset</a></li>
+              <li>📄 <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Dataset</a></li>
               <li>📄 <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/decisionTree.ipynb" target="_blank">View Full Code</a></li>
             </ul>
-            
+          
             <div class="image-container">
               <img src="screenshots/dataset.png" alt="Dataset Before Modeling">
-              <p class="caption">Cleaned wildfire dataset used for Decision Tree modeling</p>
+              <p class="caption">Original cleaned wildfire dataset used in Decision Tree modeling</p>
             </div>
-            
+          
             <div class="image-container">
               <img src="Results/Decision Tree/X_train.png" alt="X_train">
               <img src="Results/Decision Tree/X_test.png" alt="X_test">
-              <p class="caption">Disjoint training and testing sets created using <code>train_test_split</code></p>
+              <p class="caption">Training and testing split created with <code>train_test_split</code></p>
             </div>
-            
-            <h3>Model Results</h3>
-            <p>The default Decision Tree model significantly overfit the data, with training accuracy of 99.8% and testing accuracy of 80.06%. To address this, I trained three different Decision Trees with controlled depth, different hyperparameters, and varied feature subsets to promote generalization and diverse root splits.</p>
-            
-            <p><strong>Each tree was trained with a unique configuration:</strong></p>
+          
+            <h3>Model Experiments and Results</h3>
+            <p>The default Decision Tree model severely overfit with 99.8% training accuracy. To fix this, I trained three different trees with tuned hyperparameters:</p>
+          
             <ul>
-              <li>Tree 1: Criterion = Gini, depth-limited, balanced parameters</li>
-              <li>Tree 2: Criterion = Entropy, different feature subset</li>
-              <li>Tree 3: Feature decorrelation using correlation matrix filtering</li>
+              <li><strong>Tree 1:</strong> Gini criterion, limited depth</li>
+              <li><strong>Tree 2:</strong> Entropy criterion, different feature subset</li>
+              <li><strong>Tree 3:</strong> Correlated features removed, best generalization</li>
             </ul>
-            
-            <h4>Decision Tree 1</h4>
+          
+            <h4>Decision Tree 1 (Gini, Depth-Limited)</h4>
             <ul>
-              <li><strong>Training Accuracy:</strong> 69.4%</li>
-              <li><strong>Testing Accuracy:</strong> 66.87%</li>
-              <li><strong>AUC Score:</strong> 0.73</li>
-              <li><strong>Observation:</strong> Generalized well with minimal overfitting. Performed better than Naïve Bayes models.</li>
+              <li>Training Accuracy: 69.4%</li>
+              <li>Testing Accuracy: 66.87%</li>
+              <li>AUC Score: 0.73</li>
+              <li>Observation: Balanced generalization, outperformed Naïve Bayes</li>
             </ul>
-            
+            <img src="Results/Decision Tree/dt_tree1_accuracy.png" alt="DT Accuracy 1">
+            <img src="Results/Decision Tree/dt_tree1_classification_report.png" alt="DT Classification Report 1">
+            <img src="Results/Decision Tree/dt_tree1_roc_auc.png" alt="DT ROC Curve 1">
             <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree1_accuracy.png" alt="DT Accuracy 1">
-              <p class="caption">Training vs. Testing Accuracy for Decision Tree 1</p>
+                <img src="Results/Decision Tree/dt_tree1.png" alt="Tree 1">
+                <p class="caption">Visualization of Decision Tree 1</p>
             </div>
-            <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree1_classification_report.png" alt="DT Classification Report 1">
-              <p class="caption">Confusion Matrix and Classification Report for Tree 1</p>
-            </div>
-            <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree1_roc_auc.png" alt="DT ROC Curve 1">
-              <p class="caption">ROC Curve for Tree 1 (AUC = 0.73)</p>
-            </div>
-            
-            <h4>Decision Tree 2</h4>
+            <p class="caption">Decision Tree 1</p>
+                      
+            <h4>Decision Tree 2 (Entropy, Feature Subset)</h4>
             <ul>
-              <li><strong>Training Accuracy:</strong> 67.7%</li>
-              <li><strong>Testing Accuracy:</strong> 64.2%</li>
-              <li><strong>AUC Score:</strong> 0.69</li>
-              <li><strong>Observation:</strong> Slightly lower AUC but still balanced. Used entropy criterion and a different feature subset for diversity.</li>
+              <li>Training Accuracy: 67.7%</li>
+              <li>Testing Accuracy: 64.2%</li>
+              <li>AUC Score: 0.69</li>
+              <li>Observation: Diverse split, decent balance of precision/recall</li>
             </ul>
-            
+            <img src="Results/Decision Tree/dt_tree2_accuracy.png" alt="DT Accuracy 2">
+            <img src="Results/Decision Tree/dt_tree2_classification_report.png" alt="DT Classification Report 2">
+            <img src="Results/Decision Tree/dt_tree2_roc_auc.png" alt="DT ROC Curve 2">
             <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree2_accuracy.png" alt="DT Accuracy 2">
-              <p class="caption">Training vs. Testing Accuracy for Decision Tree 2</p>
+                <img src="Results/Decision Tree/dt_tree2.png" alt="Tree 2">
+                <p class="caption">Visualization of Decision Tree 2</p>
             </div>
-            <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree2_classification_report.png" alt="DT Classification Report 2">
-              <p class="caption">Confusion Matrix and Classification Report for Tree 2</p>
-            </div>
-            <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree2_roc_auc.png" alt="DT ROC Curve 2">
-              <p class="caption">ROC Curve for Tree 2 (AUC = 0.69)</p>
-            </div>
-            
-            <h4>Decision Tree 3</h4>
+            <p class="caption">Decision Tree 2</p>
+                      
+            <h4>Decision Tree 3 (Decorrelated Features)</h4>
             <ul>
-              <li><strong>Training Accuracy:</strong> 73.8%</li>
-              <li><strong>Testing Accuracy:</strong> 71.02%</li>
-              <li><strong>AUC Score:</strong> 0.77</li>
-              <li><strong>Observation:</strong> Performed the best in terms of generalization. Trained on uncorrelated features, resulting in a different root split and better AUC.</li>
+              <li>Training Accuracy: 73.8%</li>
+              <li>Testing Accuracy: 71.02%</li>
+              <li>AUC Score: 0.77</li>
+              <li>Observation: Best performance, reduced overfitting via feature decorrelation</li>
             </ul>
-            
+            <img src="Results/Decision Tree/dt_tree3_accuracy.png" alt="DT Accuracy 3">
+            <img src="Results/Decision Tree/dt_tree3_classification_report.png" alt="DT Classification Report 3">
+            <img src="Results/Decision Tree/dt_tree3_roc_auc.png" alt="DT ROC Curve 3">
             <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree3_accuracy.png" alt="DT Accuracy 3">
-              <p class="caption">Training vs. Testing Accuracy for Decision Tree 3</p>
+                <img src="Results/Decision Tree/dt_tree3.png" alt="Tree 3">
+                <p class="caption">Visualization of Decision Tree 3</p>
             </div>
-            <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree3_classification_report.png" alt="DT Classification Report 3">
-              <p class="caption">Confusion Matrix and Classification Report for Tree 3</p>
-            </div>
-            <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree3_roc_auc.png" alt="DT ROC Curve 3">
-              <p class="caption">ROC Curve for Tree 3 (AUC = 0.77)</p>
-            </div>
-            
-            <div class="image-container">
-              <img src="Results/Decision Tree/dt_tree1.png" alt="Tree 1">
-              <img src="Results/Decision Tree/dt_tree2.png" alt="Tree 2">
-              <img src="Results/Decision Tree/dt_tree3.png" alt="Tree 3">
-              <p class="caption">Visualizations of all three decision trees with different root nodes and configurations</p>
-            </div>
-            
-            <h3>Conclusions</h3>
-            <p>Decision Trees provided significantly better performance than Naïve Bayes models for wildfire prediction. The key takeaways include:</p>
-            <ul>
-              <li><strong>Interpretability:</strong> Visual trees helped identify key features contributing to fire prediction.</li>
-              <li><strong>Performance:</strong> All three models showed solid generalization with AUCs ranging from 0.69 to 0.77.</li>
-              <li><strong>Customization:</strong> Varying depth, criterion, and feature sets led to different root nodes and decision paths, improving insight.</li>
-              <li><strong>Class Detection:</strong> Recall for class 1 (fires) was consistently strong, showing the model’s ability to flag fire risk.</li>
-            </ul>
-            <p><strong>Conclusion:</strong> By tuning hyperparameters and input features, Decision Trees became an interpretable and effective tool for wildfire classification, balancing performance and clarity.</p>
-        </div>
-
+            <p class="caption">Decision Tree 3</p>
+                      
+            <h3>Non-Technical Conclusion</h3>
+            <p>To predict wildfire risk, I explored decision trees models that ask a series of yes/no questions based on the weather and soil data. They are like flowcharts that
+                 narrow down conditions to make a decision.</p>
+          
+            <p>I trained three different decision trees by slightly changing how the splits were made. Each one learned patterns like "dry soil and high wind → higher fire risk." 
+                One of these trees (Tree 3) did very well and correctly predicting fires in over 71% of test cases.</p>
+          
+            <p>Each version of the tree gave us new insights into the data. Some trees focused on moisture, others on wind speed or temperature. Even though their shapes differed, 
+                they all highlighted conditions known to increase wildfire risk.</p>
+          
+            <p>Compared to simpler models like Naïve Bayes, decision trees made more accurate and realistic predictions while also providing a visual explanation for those decisions.</p>
+          
+            <p>Decision trees proved to be an effective and understandable tool for wildfire classification. Its solid performance and insights that can help in real-world fire 
+                monitoring systems.</p>
+          </div>
+          
         <div id="regression" class="tab-content">
             <h2>Regression Overview</h2>
 
-            <h3>(a) What is Linear Regression?</h3>
+            <h3>What is Linear Regression?</h3>
             <p>Linear Regression is a supervised learning algorithm used to predict a continuous output variable based on one or more input features. It assumes a linear relationship between the independent variables (features) and the dependent variable (target). The model fits a straight line by minimizing the sum of squared differences between actual and predicted values. This is known as the least squares method.</p>
           
-            <h3>(b) What is Logistic Regression?</h3>
+            <h3>What is Logistic Regression?</h3>
             <p>Logistic Regression is a classification algorithm used to predict binary outcomes (e.g., 0 or 1, true or false). It computes a linear combination of input features and applies the sigmoid function to produce probabilities between 0 and 1. Based on a defined threshold (commonly 0.5), it classifies inputs into one of the two categories. Logistic regression is widely used in medical diagnoses, risk prediction, and binary classification tasks.</p>
           
-            <h3>(c) Similarities and Differences</h3>
+            <h3>Similarities and Differences</h3>
             <p>Both Linear and Logistic Regression use a linear combination of input features and are trained using labeled data. The key difference is that Linear Regression predicts continuous numerical values, while Logistic Regression predicts probabilities for classification. Linear Regression uses least squares for optimization, while Logistic Regression uses Maximum Likelihood Estimation. Additionally, Logistic Regression includes a non-linear transformation (sigmoid) to map values between 0 and 1.</p>
           
-            <h3>(d) Sigmoid Function in Logistic Regression</h3>
+            <h3>Sigmoid Function in Logistic Regression</h3>
             <p>Yes, Logistic Regression uses the sigmoid function to map the raw output of the linear model into a probability between 0 and 1. This is essential for classification because it interprets the output as the probability of belonging to the positive class. The sigmoid function is defined as 1 / (1 + e^-z), where z is the linear combination of inputs.</p>
           
-            <h3>(e) Maximum Likelihood in Logistic Regression</h3>
+            <h3>Maximum Likelihood in Logistic Regression</h3>
             <p>Logistic Regression uses Maximum Likelihood Estimation (MLE) to estimate model parameters. MLE finds the set of weights that maximize the likelihood of observing the actual labels in the training data. Instead of minimizing error, this approach focuses on making the predicted probabilities closely match the true class labels. It is optimized using gradient descent or related techniques.</p>
                     
             <h3>Data Preparation</h3>
             <p>We used the same cleaned and labeled dataset from the Naïve Bayes analysis. It contains only two output categories (fire = 0 or 1), making it ideal for binary classification. The dataset was split using an 80:20 ratio into training and testing sets with <code>random_state=42</code> to ensure reproducibility. The split is disjoint to prevent data leakage and ensure honest performance evaluation.</p>
             
+            <div class="image-container">
+                <img src="screenshots/dataset.png" alt="Standard Scaled Train Data">
+                <p class="caption">Cleaned Dataset before scaling</p>
+            </div>
+
             <p>Before modeling with Logistic Regression, we standardized all feature values using <code>StandardScaler</code>. This step was crucial for Logistic Regression to ensure that all features contribute proportionally. The same scaling was used for Gaussian Naïve Bayes as well. You can preview the data and transformation below.</p>
             
             <div class="image-container">
@@ -1849,53 +1835,46 @@
                 
         <div id="ensemble" class="tab-content">
             <h2>Ensemble Learning Overview</h2>
-        
-            <p>Ensemble learning is a technique in machine learning where multiple models (weak learners) are combined to solve a problem and improve overall performance. By 
-                aggregating the predictions of several models, ensemble methods achieve better results than any single model by itself.</p>
-        
-            <p>There are several common ensemble techniques:</p>
+          
+            <p>Ensemble learning is a powerful machine learning approach where multiple models, known as weak learners, are combined to produce a stronger, more accurate predictive model. This approach improves both robustness and performance by reducing bias, variance, or both.</p>
+          
+            <p>Common ensemble techniques include:</p>
             <ul>
-                <li><strong>Bagging (Bootstrap Aggregation):</strong> Reduces variance by training each model on a random subset of the data. Example: Random Forest.</li>
-                <li><strong>Boosting:</strong> Reduces bias by sequentially training models where each corrects the mistakes of the previous model. Examples: AdaBoost, XGBoost.</li>
-                <li><strong>Voting:</strong> Combines predictions from multiple models using majority or weighted voting.</li>
-                <li><strong>Stacking:</strong> Uses the predictions of base models as inputs to a final "meta-learner" model.</li>
+              <li><strong>Bagging (Bootstrap Aggregation):</strong> Trains multiple models on different random subsets of the data to reduce variance. Example: Random Forest.</li>
+              <li><strong>Boosting:</strong> Builds models sequentially, with each new model correcting errors made by the previous ones. Examples: AdaBoost, XGBoost.</li>
+              <li><strong>Voting:</strong> Combines predictions from different models using majority or weighted voting.</li>
+              <li><strong>Stacking:</strong> Uses predictions from base models as input for a final meta-model that makes the overall prediction.</li>
             </ul>
-        
+          
             <div class="image-container">
-                <img src="Images/ensemble_learning.jpg" alt="Ensemble Learning Summary Diagram">
-                <p class="caption">Ensemble learning combines multiple models to achieve better generalization</p>
+              <img src="Images/ensemble_learning.jpg" alt="Ensemble Learning Summary Diagram">
+              <p class="caption">Ensemble learning combines multiple models to achieve better generalization and predictive power.</p>
             </div>
-        
+          
             <h3>Methods Used: Random Forest and XGBoost</h3>
-            <p>I explored both <strong>Random Forest</strong> (a bagging method) and <strong>XGBoost</strong> (a boosting method). Random Forest is an ensemble of decision trees 
-                trained on random subsets of data with feature bagging which reduces overfitting. XGBoost (Extreme Gradient Boosting) builds trees sequentially with optimized 
-                gradient descent. This often gives a very good accuracy but has a high risk of overfitting.</p>
-        
+            <p>This project explores two ensemble techniques: <strong>Random Forest</strong> (a bagging method) and <strong>XGBoost</strong> (a boosting method). Random Forest constructs an ensemble of decision trees trained on random data and features, which helps minimize overfitting. XGBoost builds trees in sequence with gradient optimization, making it highly accurate but sensitive to hyperparameters.</p>
+          
             <p>
-                🔗 <strong>Code and Dataset:</strong><br>
-                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Dataset</a> | 
-                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/Xgboost.ipynb" target="_blank">View Xgboost Code</a>
-                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/RandomForest.ipynb" target="_blank">View Random Forest Code</a>
+              🔗 <strong>Code and Dataset:</strong><br>
+              <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Dataset</a> | 
+              <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/Xgboost.ipynb" target="_blank">XGBoost Code</a> |
+              <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/RandomForest.ipynb" target="_blank">Random Forest Code</a>
             </p>
-        
+          
             <h3>Data Preparation</h3>
-            <p>The same cleaned and labeled dataset was used which was used for other supervised learning models. It contains binary class labels (fire = 0 or 1) and features derived from weather and soil conditions. The dataset was split in an 80:20 ratio, and all numeric features were standardized using <code>StandardScaler</code>. There were no missing values after preprocessing.</p>
-        
+            <p>The same cleaned wildfire dataset was used across all models. The target variable is binary (fire = 0 or 1), and all features were standardized using <code>StandardScaler</code>. An 80:20 train-test split was applied with <code>random_state=42</code>. No missing values were present after preprocessing.</p>
+          
             <div class="image-container">
-                <img src="Images/Ensemble/ensemble_train_data.png" alt="Train Dataset Preview">
-                <p class="caption">Preview of the standardized training dataset used in Random Forest and XGBoost</p>
+              <img src="Results/Random Forest/x_train_before_transformation.png" alt="Train Dataset Preview">
+              <p class="caption">Standardized training dataset before transformation.</p>
             </div>
             <div class="image-container">
-                <img src="Images/Ensemble/ensemble_train_data.png" alt="Train Dataset Preview">
-                <p class="caption">Preview of the standardized training dataset used in Random Forest and XGBoost</p>
+              <img src="Results/Random Forest/x_train_after_transformation.png" alt="Test Dataset Preview">
+              <p class="caption">Standardized training dataset after transformation.</p>
             </div>
-            <div class="image-container">
-                <img src="Images/Ensemble/ensemble_test_data.png" alt="Test Dataset Preview">
-                <p class="caption">Testing dataset prepared from 20% holdout split</p>
-            </div>
-        
+          
             <h3>Results & Evaluation</h3>
-        
+            <p>After training the baseline models, I used Optuna and Bayesian optimization to perform hyperparameter tuning. This was done to identify the best parameters that maximize model performance on the wildfire classification task.</p>
             <h4>Random Forest: Baseline vs Tuned Model Comparison</h4>
             <table border="1" cellpadding="8" cellspacing="0">
               <thead>
@@ -1906,47 +1885,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Training Accuracy</td>
-                  <td>86.80%</td>
-                  <td><strong>91.82%</strong></td>
-                </tr>
-                <tr>
-                  <td>Testing Accuracy</td>
-                  <td>81.15%</td>
-                  <td><strong>83.45%</strong></td>
-                </tr>
-                <tr>
-                  <td>Precision</td>
-                  <td>81.90%</td>
-                  <td><strong>84.18%</strong></td>
-                </tr>
-                <tr>
-                  <td>Recall</td>
-                  <td>81.15%</td>
-                  <td><strong>83.45%</strong></td>
-                </tr>
-                <tr>
-                  <td>F1 Score</td>
-                  <td>81.02%</td>
-                  <td><strong>83.35%</strong></td>
-                </tr>
-                <tr>
-                  <td>ROC AUC</td>
-                  <td>0.8899</td>
-                  <td><strong>0.9130</strong></td>
-                </tr>
+                <tr><td>Training Accuracy</td><td>86.80%</td><td><strong>91.82%</strong></td></tr>
+                <tr><td>Testing Accuracy</td><td>81.15%</td><td><strong>83.45%</strong></td></tr>
+                <tr><td>Precision</td><td>81.90%</td><td><strong>84.18%</strong></td></tr>
+                <tr><td>Recall</td><td>81.15%</td><td><strong>83.45%</strong></td></tr>
+                <tr><td>F1 Score</td><td>81.02%</td><td><strong>83.35%</strong></td></tr>
+                <tr><td>ROC AUC</td><td>0.8899</td><td><strong>0.9130</strong></td></tr>
               </tbody>
             </table>
-            div class="image-container">
-                <img src="Results/Random Forest/rf_conf_matrix.png" alt="Confusion Matrix - Random Forest">
-                <p class="caption">Random Forest Confusion Matrix</p>
+            <div class="image-container">
+              <img src="Results/Random Forest/rf_conf_matrix.png" alt="Confusion Matrix - Random Forest">
+              <p class="caption">Confusion Matrix for Tuned Random Forest</p>
             </div>
             <div class="image-container">
-                <img src="Results/Random Forest/rf_auc_roc.png" alt="ROC Curve - Random Forest">
-                <p class="caption">ROC Curve for Random Forest (AUC = 0.91)</p>
+              <img src="Results/Random Forest/rf_auc_roc.png" alt="ROC Curve - Random Forest">
+              <p class="caption">ROC Curve for Random Forest (AUC = 0.913)</p>
             </div>
-        
+          
             <h4>XGBoost Classifier Comparison</h4>
             <table border="1" cellpadding="8" cellspacing="0">
               <thead>
@@ -1982,34 +1937,35 @@
               </tbody>
             </table>
             <div class="image-container">
-                <img src="Results/XGBoost/conf_matrix.png" alt="Confusion Matrix - XGBoost">
-                <p class="caption">Confusion Matrix for XGBoost</p>
+              <img src="Results/XGBoost/conf_matrix.png" alt="Confusion Matrix - XGBoost">
+              <p class="caption">Confusion Matrix for Tuned XGBoost</p>
             </div>
             <div class="image-container">
-                <img src="Results/XGBoost/roc_curve.png" alt="ROC Curve - XGBoost">
-                <p class="caption">ROC Curve for XGBoost (AUC = 0.935)</p>
+              <img src="Results/XGBoost/roc_curve.png" alt="ROC Curve - XGBoost">
+              <p class="caption">ROC Curve for XGBoost (AUC = 0.9352)</p>
             </div>
-        
+          
             <h3>Non-Technical Summary</h3>
-            <p>Both ensemble models significantly improved wildfire prediction compared to single classifiers like Logistic Regression and Naïve Bayes. The key advantage of ensemble 
-                models is their ability to "average out" the errors of individual models. XGBoost slightly outperformed Random Forest in both accuracy and AUC, making it the most 
-                effective model tested for this classification task.</p>
-        
+            <p>Both Random Forest and XGBoost improved fire prediction accuracy over basic models. These ensemble models like expert teams that "vote" on whether a fire will occur by
+                combining multiple perspectives to make more reliable decisions. XGBoost performed the best with better accuracy and more confident predictions.</p>
+          
             <ul>
-                <li><strong>Random Forest</strong> is easier to train and less sensitive to parameters.</li>
-                <li><strong>XGBoost</strong> is more accurate but requires careful tuning.</li>
-                <li>Both models are interpretable via feature importance plots.</li>
+              <li><strong>Random Forest</strong> is simpler and easier to tune but still very powerful.</li>
+              <li><strong>XGBoost</strong> is more accurate but needs careful optimization and training time.</li>
+              <li>Both methods help highlight key environmental factors through feature importance analysis.</li>
             </ul>
-        
+          
             <div class="image-container">
-                <img src="Results/XGBoost/feature_importance.png" alt="Feature Importance XGBoost">
-                <p class="caption">Top features influencing wildfire predictions according to XGBoost</p>
+              <img src="Results/XGBoost/feature_importance.png" alt="Feature Importance XGBoost">
+              <p class="caption">Top features influencing wildfire predictions (XGBoost)</p>
             </div>
-        
-            <h3>(e) Conclusions</h3>
-            <p><strong>Which model worked best?</strong> XGBoost outperformed all other models in accuracy, AUC, and F1-score. It learned complex feature interactions effectively, making it highly suitable for this environmental classification task. Ensemble learning provided a clear advantage over single models in both generalization and performance.</p>
-        </div>
-        
+          
+            <h3>Conclusions</h3>
+            <p><strong>Which model worked best?</strong> XGBoost outperformed Random Forest in all key metrics including accuracy, recall, and AUC. It proved more effective in 
+                identifying complex relationships in wildfire data. Ensemble learning was clearly better than single classifiers and should be the preferred strategy for 
+                tasks with very high-stakes like fire detection.</p>
+          </div>
+                  
         <div id="conclusion" class="tab-content">
 
             <h2>Final Conclusion</h2>
