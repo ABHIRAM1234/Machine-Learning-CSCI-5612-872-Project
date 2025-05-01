@@ -19,7 +19,8 @@
             <div class="tab" onclick="showTab('rf')">Random Forest</div>
             <div class="tab" onclick="showTab('naive-bayes')">Naive Bayes</div>
             <div class="tab" onclick="showTab('regression')">Regression</div>
-            <div class="tab" onclick="showTab('conclusion-results')">Conclusions</div>
+            <div class="tab" onclick="showTab('ensemble')">Ensemble</div>
+            <div class="tab" onclick="showTab('conclusion')">Conclusions</div>
             <div class="tab" onclick="showTab('links')">Links</div>
         </div>
         
@@ -1551,6 +1552,415 @@
             
             <p><strong>Overall Insight:</strong> For wildfire classification based on weather and soil conditions, Decision Trees provided the best trade-off between interpretability and predictive performance.</p>
         </div>
+
+        <div id="svm" class="tab-content">
+            <h2>Support Vector Machines (SVM) Overview</h2>
+        
+            <h3>What is SVM?</h3>
+            <p>Support Vector Machines (SVMs) are supervised learning models used for classification tasks. They work by finding the optimal hyperplane that maximizes the margin 
+                between two classes in the feature space. This margin is defined by the closest points from each class and are called support vectors.</p>
+            
+            <h3>Why SVMs are Linear Separators?</h3>
+            <p>An SVM tries to draw a straight line (or hyperplane in higher dimensions) that best separates the data points of two classes. This is known as a 
+                linear separator because the decision boundary is a straight line or plane. The optimal linear separator is the one that leaves the maximum margin between the two 
+                classes.</p>
+        
+            <h3>Dot Product in Kernel Trick</h3>
+            <p>When data is not linearly separable in the original space, SVMs use a technique called the <strong>kernel trick</strong> to map data into a higher-dimensional space 
+                where a linear separator might exist. This transformation is done using a kernel function, which calculates the <strong>dot product</strong> of the data in that 
+                higher-dimensional space. It does not explicitly compute the transformation.</p>
+            <p>Common kernels include:</p>
+            <ul>
+                <li><strong>Linear kernel:</strong> K(x, x′) = x · x′</li>
+                <li><strong>Polynomial kernel:</strong> K(x, x′) = (x · x′ + r)<sup>d</sup></li>
+                <li><strong>RBF kernel:</strong> K(x, x′) = exp(−γ · ||x − x′||²)</li>
+            </ul>
+        
+            <h3>Example: 2D Point with Polynomial Kernel</h3>
+            <p>Let’s take a 2D point <strong>x = [x₁, x₂]</strong> and apply a polynomial kernel with <strong>r = 1</strong> and <strong>d = 2</strong>. The transformation 
+                becomes:</p>
+            <p><strong>ϕ(x) = [1, x₁, x₂, x₁², x₂², x₁·x₂]</strong></p>
+            <p>This means the original 2D point is projected into a 6-dimensional space, allowing a linear separator to be found in that transformed space.</p>
+                    
+            <div class="image-container">
+                <img src="Results/SVM/svm_margin" alt="SVM Margin Visualization">
+                <p class="caption">SVM separates data using the maximum margin between classes.</p>
+            </div>
+            <div class="image-container">
+                <img src="Results/SVM/svm_kernel_visual.jpg" alt="SVM Kernel Trick Visualization">
+                <p class="caption">Non-linear data becomes linearly separable in higher dimensions using kernel trick.</p>
+            </div>
+        
+            <h3>Data Preparation</h3>
+            <p>The dataset used was the same cleaned and labeled wildfire dataset (fire = 0 or 1). It was split using an 80:20 train-test split with <code>random_state=42</code> to ensure reproducibility.</p>
+            <p>All features were scaled using <code>StandardScaler</code> as SVMs are sensitive to the scale of the features.</p>
+        
+            <div class="image-container">
+                <img src="screenshots/dataset.png" alt="Dataset Before Modeling">
+                <p class="caption">Cleaned wildfire dataset used for Decision Tree modeling</p>
+              </div>
+            <div class="image-container">
+                <img src="Results/SVM/x_train.png" alt="Train Dataset">
+                <p class="caption">Standardized training data used for SVM modeling.</p>
+            </div>
+            <div class="image-container">
+                <img src="Results/SVM/x_test.png" alt="Test Dataset">
+                <p class="caption">Standardized testing data used for evaluation.</p>
+            </div>
+            <div class="image-container">
+                <img src="Results/SVM/y_train.png" alt="Train Dataset">
+                <p class="caption">Standardized training data used for SVM modeling.</p>
+            </div>
+            <div class="image-container">
+                <img src="Results/SVM/y_test.png" alt="Test Dataset">
+                <p class="caption">Standardized testing data used for evaluation.</p>
+            </div>
+        
+            <p>
+                🔗 <strong>Dataset:</strong> 
+                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Dataset</a>
+                | 🔗 <strong>Code:</strong> 
+                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/SVM.ipynb" target="_blank">SVM Code</a>
+            </p>
+        
+            <h3>3 Kernels × 5 C Values</h3>
+            <p>Each kernel (linear, polynomial, RBF) was tested with C = 0.01, 0.1, 1, 10 and 100. Confusion matrices and classification reports were generated for each configuration.</p>
+        
+            <h4>Linear Kernel (LinearSVC)</h4>
+            <table border="1" cellpadding="8" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>C Value</th>
+                  <th>Training Accuracy</th>
+                  <th>Testing Accuracy</th>
+                  <th>ROC AUC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0.01</td>
+                  <td>65.37%</td>
+                  <td>65.68%</td>
+                  <td>0.6978</td>
+                </tr>
+                <tr>
+                  <td>0.1</td>
+                  <td>65.59%</td>
+                  <td>65.80%</td>
+                  <td>0.6998</td>
+                </tr>
+                <tr>
+                  <td><strong>1</strong></td>
+                  <td><strong>65.59%</strong></td>
+                  <td><strong>65.82%</strong></td>
+                  <td><strong>0.7000</strong></td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>65.58%</td>
+                  <td>65.80%</td>
+                  <td>0.7000</td>
+                </tr>
+                <tr>
+                  <td>100</td>
+                  <td>65.58%</td>
+                  <td>65.81%</td>
+                  <td>0.7000</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>Model with C=1 is marginaly the best because it has the highest test accuracy and ROC-AUC. All values from 0.1 to 100 produce statistically similar performances</p>
+            <img src="Results/SVM/linear_kernel_conf_matrix.png" alt="Linear Kernel Confusion Matrices">
+            <img src="Images/SVM/linear_kernel_roc_auc.png" alt="Linear Kernel ROC-AUC">
+        
+            <p>I used only a subset of the data because the Polynomial Kernel is computationally expensive</p>
+            <h4>Polynomial Kernel (degree = 3)</h4>
+            <table border="1" cellpadding="8" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>C Value</th>
+                  <th>Training Accuracy</th>
+                  <th>Testing Accuracy</th>
+                  <th>ROC AUC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0.01</td>
+                  <td>52.19%</td>
+                  <td>52.35%</td>
+                  <td>0.6222</td>
+                </tr>
+                <tr>
+                  <td>0.1</td>
+                  <td>64.08%</td>
+                  <td>62.20%</td>
+                  <td>0.6691</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>70.11%</td>
+                  <td>66.30%</td>
+                  <td>0.7185</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>76.99%</td>
+                  <td>71.10%</td>
+                  <td>0.7604</td>
+                </tr>
+                <tr>
+                  <td><strong>100</strong></td>
+                  <td><strong>82.43%</strong></td>
+                  <td><strong>72.70%</strong></td>
+                  <td><strong>0.7700</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>Model with C=100 is the best because it achieves the highest test accuracy and AUC. It also balances precision and recall really well. 
+                The classifier wildfire (class 1) cases more reliably than all other C values.</p>
+            <img src="Results/SVM/poly_kernel_conf_matrix.png" alt="Poly Kernel Confusion Matrix">
+            <img src="Images/SVM/poly_kernel_roc_auc.png" alt="Poly Kernel ROC-AUC">
+            
+
+            <h4>RBF Kernel</h4>
+            <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                <th>C Value</th>
+                <th>Training Accuracy</th>
+                <th>Testing Accuracy</th>
+                <th>ROC AUC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>0.01</td>
+                <td>64.51%</td>
+                <td>64.74%</td>
+                <td>0.6989</td>
+                </tr>
+                <tr>
+                <td>0.1</td>
+                <td>71.28%</td>
+                <td>71.30%</td>
+                <td>0.7728</td>
+                </tr>
+                <tr>
+                <td>1</td>
+                <td>77.07%</td>
+                <td>76.16%</td>
+                <td>0.8252</td>
+                </tr>
+                <tr>
+                <td>10</td>
+                <td>81.65%</td>
+                <td>79.55%</td>
+                <td>0.8593</td>
+                </tr>
+                <tr>
+                <td><strong>100</strong></td>
+                <td><strong>86.39%</strong></td>
+                <td><strong>82.45%</strong></td>
+                <td><strong>0.8788</strong></td>
+                </tr>
+            </tbody>
+            </table>
+            <p>Model with C=100 is the best RBF configuration because it it achieves the highest test accuracy and ROC-AUC. This model is the strongest among SVM models</p>
+            <img src="Results/SVM/rbf_kernel_conf_matrix.png" alt="Poly Kernel Confusion Matrix">
+            <img src="Results/SVM/rbf_kernel_roc_auc.png" alt="Poly Kernel ROC-AUC">
+
+            <h4>Model Comparison Across Kernels</h4>
+            <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                <th>Kernel</th>
+                <th>Best C</th>
+                <th>Training Accuracy</th>
+                <th>Testing Accuracy</th>
+                <th>ROC AUC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>Linear (LinearSVC)</td>
+                <td>1</td>
+                <td>65.59%</td>
+                <td>65.82%</td>
+                <td>0.7000</td>
+                </tr>
+                <tr>
+                <td>Polynomial (degree = 3)</td>
+                <td>100</td>
+                <td>82.43%</td>
+                <td>72.70%</td>
+                <td>0.7700</td>
+                </tr>
+                <tr>
+                <td><strong>RBF</strong></td>
+                <td><strong>100</strong></td>
+                <td><strong>86.39%</strong></td>
+                <td><strong>82.45%</strong></td>
+                <td><strong>0.8788</strong></td>
+                </tr>
+            </tbody>
+            </table>
+
+            <p>I explored three different support vector machine (SVM) kernels: linear, polynomial, and radial basis function (RBF). Each of these models was different regularization 
+                values (C) to find the best configuration. As expected, the linear kernel delivered an average performance, with accuracy topping out around 66%. The polynomial kernel
+                with a degree of 3, performed significantly better with 72% testing accuracy. However, the RBF kernel clearly outperformed both the kernels.</p> 
+
+            <p>The RBF kernel achieved the best results overall, with a testing accuracy of 82.45% and an AUC score of 0.8788. The AUC score indicates that it is able to differentiate 
+                very well between wildfire and non-wildfire conditions. It captured complex, non-linear relationships in the data that the linear and polynomial kernels could not 
+                model as effectively. Its strong recall and F1 scores show that it can detect high-risk fire zones accurately.</p> 
+
+            <p>While simpler models like linear SVM can be trained faster and are easily interpretable, real-world problems such as wildfire prediction benefit from more flexible 
+                models like the RBF kernel. The RBF-based SVM is the most accurate model and is also the most useful for real-time fire risk prediction where accurate and 
+                early warnings are important.</p>
+            
+            <h3>Decision Boundary Visualizations</h3>
+            <p>Decision boundaries were plotted using 2D projections of the data. The images below show separation for each kernel:</p>
+            <div class="image-container">
+                <img src="Results/SVM/decision_boundary_linear.png" alt="Decision Boundary Linear">
+                <p class="caption">Decision boundary using Linear Kernel</p>
+            </div>
+            <div class="image-container">
+                <img src="Results/SVM/decision_boundary_poly.png" alt="Decision Boundary Polynomial">
+                <p class="caption">Decision boundary using Polynomial Kernel</p>
+            </div>
+            <div class="image-container">
+                <img src="Results/SVM/decision_boundary_rbf.png" alt="Decision Boundary RBF">
+                <p class="caption">Decision boundary using RBF Kernel</p>
+            </div>
+
+            <h3>Non-Technical Conclusion</h3>
+            <p>Support Vector Machines (SVMs) are a type of model that helps us make decisions by drawing boundaries between groups. It is like drawing a line to 
+                separate different classes. SVM tries to draw the best possible line so that the two classes (wildfire, non-wildfire) do not mix up. I tested three different types of 
+                boundary-drawing techniques: straight lines, curved lines, and flexible waves</p>
+            <p>I found that while drawing straight lines worked okay, using more flexible boundaries helped us differentiate between wildfire-prone situations much more accurately. 
+                The model using flexible waves (called the RBF kernel) was best at this and gave the most reliable predictions.</p>
+            <p>This is useful because predicting wildfires early can help with evacuation, resource planning, and saving lives. A good prediction model gives emergency teams more time 
+                to act.</p>
+            <p>We learned that not all models work equally well for every problem. For tricky situations like wildfires, using smarter, more adaptable models makes a big difference in 
+                getting reliable results.</p>
+            <p>With this tool we can be better prepared before disasters strike, helping people and communities stay safe.</p>
+
+        </div>
+                
+        <div id="ensemble" class="tab-content">
+            <h2>Ensemble Learning Overview</h2>
+        
+            <p>Ensemble learning is a technique in machine learning where multiple models (weak learners) are combined to solve a problem and improve overall performance. By aggregating the predictions of several models, ensemble methods achieve better results than any single model by itself.</p>
+        
+            <p>There are several common ensemble techniques:</p>
+            <ul>
+                <li><strong>Bagging (Bootstrap Aggregation):</strong> Reduces variance by training each model on a random subset of the data. Example: Random Forest.</li>
+                <li><strong>Boosting:</strong> Reduces bias by sequentially training models where each corrects the mistakes of the previous model. Examples: AdaBoost, XGBoost.</li>
+                <li><strong>Voting:</strong> Combines predictions from multiple models using majority or weighted voting.</li>
+                <li><strong>Stacking:</strong> Uses the predictions of base models as inputs to a final "meta-learner" model.</li>
+            </ul>
+        
+            <div class="image-container">
+                <img src="Images/ensemble_learning.jpg" alt="Ensemble Learning Summary Diagram">
+                <p class="caption">Ensemble learning combines multiple models to achieve better generalization</p>
+            </div>
+        
+            <h3>(a) Method Used: Random Forest and XGBoost</h3>
+            <p>I explored both <strong>Random Forest</strong> (a bagging method) and <strong>XGBoost</strong> (a boosting method). Random Forest is an ensemble of decision trees trained on random subsets of data with feature bagging which reduces overfitting. XGBoost (Extreme Gradient Boosting) builds trees sequentially with optimized gradient descent. This often gives a ver good accuracy but has a high risk of overfitting.</p>
+        
+            <p>
+                🔗 <strong>Code and Dataset:</strong><br>
+                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/tree/main/Datasets" target="_blank">View Dataset</a> | 
+                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/Xgboost.ipynb" target="_blank">View Ensemble Code</a>
+                <a href="https://github.com/ABHIRAM1234/Machine-Learning-CSCI-5612-872-Project/blob/main/Modeling/RandomForest.ipynb" target="_blank">View Ensemble Code</a>
+            </p>
+        
+            <h3>(b) Data Preparation</h3>
+            <p>The same cleaned and labeled dataset was used which was used for other supervised learning models. It contains binary class labels (fire = 0 or 1) and features derived from weather and soil conditions. The dataset was split in an 80:20 ratio, and all numeric features were standardized using <code>StandardScaler</code>. There were no missing values after preprocessing.</p>
+        
+            <div class="image-container">
+                <img src="Images/Ensemble/ensemble_train_data.png" alt="Train Dataset Preview">
+                <p class="caption">Preview of the standardized training dataset used in Random Forest and XGBoost</p>
+            </div>
+            <div class="image-container">
+                <img src="Images/Ensemble/ensemble_test_data.png" alt="Test Dataset Preview">
+                <p class="caption">Testing dataset prepared from 20% holdout split</p>
+            </div>
+        
+            <h3>(c) Results & Evaluation</h3>
+        
+            <h4>Random Forest Classifier</h4>
+            <ul>
+                <li><strong>Accuracy:</strong> 72.8%</li>
+                <li><strong>ROC-AUC:</strong> 0.79</li>
+                <li><strong>F1-Score:</strong> 0.73</li>
+            </ul>
+            <div class="image-container">
+                <img src="Images/Ensemble/rf_cm.png" alt="Confusion Matrix - Random Forest">
+                <p class="caption">Random Forest Confusion Matrix</p>
+            </div>
+            <div class="image-container">
+                <img src="Images/Ensemble/rf_roc.png" alt="ROC Curve - Random Forest">
+                <p class="caption">ROC Curve for Random Forest (AUC = 0.79)</p>
+            </div>
+        
+            <h4>XGBoost Classifier</h4>
+            <ul>
+                <li><strong>Accuracy:</strong> 75.3%</li>
+                <li><strong>ROC-AUC:</strong> 0.82</li>
+                <li><strong>F1-Score:</strong> 0.75</li>
+            </ul>
+            <div class="image-container">
+                <img src="Images/Ensemble/xgb_cm.png" alt="Confusion Matrix - XGBoost">
+                <p class="caption">Confusion Matrix for XGBoost</p>
+            </div>
+            <div class="image-container">
+                <img src="Images/Ensemble/xgb_roc.png" alt="ROC Curve - XGBoost">
+                <p class="caption">ROC Curve for XGBoost (AUC = 0.82)</p>
+            </div>
+        
+            <h3>(d) Non-Technical Summary</h3>
+            <p>Both ensemble models significantly improved wildfire prediction compared to single classifiers like Logistic Regression and Naïve Bayes. The key advantage of ensemble models is their ability to "average out" the errors of individual models. XGBoost slightly outperformed Random Forest in both accuracy and AUC, making it the most effective model tested for this classification task.</p>
+        
+            <ul>
+                <li><strong>Random Forest</strong> is easier to train and less sensitive to parameters.</li>
+                <li><strong>XGBoost</strong> is more accurate but requires careful tuning.</li>
+                <li>Both models are interpretable via feature importance plots.</li>
+            </ul>
+        
+            <div class="image-container">
+                <img src="Images/Ensemble/feature_importance_xgb.png" alt="Feature Importance XGBoost">
+                <p class="caption">Top features influencing wildfire predictions according to XGBoost</p>
+            </div>
+        
+            <h3>(e) Conclusions</h3>
+            <p><strong>Which model worked best?</strong> XGBoost outperformed all other models in accuracy, AUC, and F1-score. It learned complex feature interactions effectively, making it highly suitable for this environmental classification task. Ensemble learning provided a clear advantage over single models in both generalization and performance.</p>
+        </div>
+        
+        <div id="conclusion" class="tab-content">
+            <h2>Final Conclusion</h2>
+          
+            <p>Wildfires are devastating natural events that not only destroy vast areas of forest and property but also disrupt communities and threaten lives. This project aimed to explore whether machine learning could be used to predict wildfire occurrence using environmental and weather-related data. Through our journey, we worked with historical measurements such as soil moisture, wind speed, evapotranspiration, and temperature to understand their influence on fire risk.</p>
+          
+            <p>We trained and evaluated several models including Logistic Regression, Naïve Bayes, Decision Trees, Random Forests, and XGBoost. Among them, XGBoost performed the best, achieving a test accuracy of over 87%. It was particularly good at identifying complex patterns by combining many small decisions into a strong overall prediction. This means that the model could predict the likelihood of a wildfire with high confidence by observing conditions like high evapotranspiration and dry soil at certain depths.</p>
+          
+            <p>One of the most important discoveries was that certain features consistently emerged as highly influential: evapotranspiration, soil temperature, and mid-level cloud cover. These findings align with what scientists already know about fire ecology: dry, hot conditions with strong evaporation create ideal conditions for wildfires. These models essentially confirmed this intuition and gave us a data-backed way to predict when those conditions are present.</p>
+          
+            <p>In addition to prediction, the models also helped us understand how various environmental conditions interact. By visualizing feature importance and decision boundaries, we could see how the model prioritized and weighted different inputs. This kind of insight can help policymakers and emergency services focus on the most important signals when monitoring for fire risk in real time.</p>
+          
+            <p>In conclusion, this project highlights the power of artificial intelligence to support wildfire preparedness. While no model can completely prevent a natural disaster, tools like these can help reduce the damage by enabling early detection and more targeted resource allocation. With further refinement and real-time data feeds, such models can become valuable components in wildfire early warning systems.</p>
+          
+            <div class="image-container">
+              <img src="Results/XGBoost/feature_importance.png" alt="Feature Importance XGBoost">
+              <p class="caption">Top features influencing wildfire prediction (XGBoost)</p>
+            </div>
+          
+            <div class="image-container">
+              <img src="Results/XGBoost/roc_curve.png" alt="ROC Curve XGBoost">
+              <p class="caption">ROC Curve showing performance of the final XGBoost model</p>
+            </div>
+          </div>
+          
           
         <style>
             .collage {
