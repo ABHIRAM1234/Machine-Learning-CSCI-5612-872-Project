@@ -1584,23 +1584,23 @@
         
             <div class="image-container">
                 <img src="screenshots/dataset.png" alt="Dataset Before Modeling">
-                <p class="caption">Cleaned wildfire dataset used for Decision Tree modeling</p>
+                <p class="caption">Cleaned wildfire dataset used for SVM modeling</p>
               </div>
             <div class="image-container">
-                <img src="Results/SVM/x_train.png" alt="Train Dataset">
-                <p class="caption">Standardized training data used for SVM modeling.</p>
+                <img src="Results/SVM/x_train.png" alt="Train Dataset"> 
+                <p class="caption">Features (X) used for training the SVM model</p>
             </div>
             <div class="image-container">
                 <img src="Results/SVM/x_test.png" alt="Test Dataset">
-                <p class="caption">Standardized testing data used for evaluation.</p>
+                <p class="caption">Features (X) in the test set used for evaluation</p>
             </div>
             <div class="image-container">
                 <img src="Results/SVM/y_train.png" alt="Train Dataset">
-                <p class="caption">Standardized training data used for SVM modeling.</p>
+                <p class="caption">Target labels (Y) used for training the model</p>
             </div>
             <div class="image-container">
                 <img src="Results/SVM/y_test.png" alt="Test Dataset">
-                <p class="caption">Standardized testing data used for evaluation.</p>
+                <p class="caption">Target labels (Y) used for evaluating model performance</p>
             </div>
         
             <p>
@@ -1705,7 +1705,7 @@
               </tbody>
             </table>
             <p>Model with C=100 is the best because it achieves the highest test accuracy and AUC. It also balances precision and recall really well. 
-                The classifier wildfire (class 1) cases more reliably than all other C values.</p>
+                It classifies wildfire (class 1) cases more reliably than all other C values.</p>
             <img src="Results/SVM/poly_kernel_conf_matrix.png" alt="Poly Kernel Confusion Matrix">
             <img src="Results/SVM/poly_kernel_roc_auc.png" alt="Poly Kernel ROC-AUC">
             
@@ -1754,9 +1754,9 @@
             </tbody>
             </table>
             <p>Model with C=100 is the best RBF configuration because it it achieves the highest test accuracy and ROC-AUC. This model is the strongest among SVM models</p>
-            <img src="Results/SVM/rbf_kernel_conf_matrix.png" alt="Rbf Kernel Confusion Matrix">
-            <img src="Results/SVM/rbf_kernel_roc_auc.png" alt="Rbf Kernel ROC-AUC">
-
+            <img src="Results/SVM/rbf_kernel_conf_matrix.png" alt="RBF Kernel Confusion Matrix">
+            <img src="Results/SVM/rbf_kernel_roc_auc.png" alt="RBF Kernel ROC-AUC">
+            
             <h4>Model Comparison Across Kernels</h4>
             <table border="1" cellpadding="8" cellspacing="0">
             <thead>
