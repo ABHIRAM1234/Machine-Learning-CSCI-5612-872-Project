@@ -1579,6 +1579,7 @@
         
             <h3>Data Preparation</h3>
             <p>The dataset used was the same cleaned and labeled wildfire dataset (fire = 0 or 1). It was split using an 80:20 train-test split with <code>random_state=42</code> to ensure reproducibility.</p>
+            <p>After splitting, all numeric features were standardized using <code>StandardScaler</code> to ensure consistent feature scaling, which is especially important for distance-based and gradient-boosted models.</p>
             <p>All features were scaled using <code>StandardScaler</code> as SVMs are sensitive to the scale of the features.</p>
         
             <div class="image-container">
@@ -1657,7 +1658,7 @@
             </table>
             <p>Model with C=1 is marginaly the best because it has the highest test accuracy and ROC-AUC. All values from 0.1 to 100 produce statistically similar performances</p>
             <img src="Results/SVM/linear_kernel_conf_matrix.png" alt="Linear Kernel Confusion Matrices">
-            <img src="Images/SVM/linear_kernel_roc_auc.png" alt="Linear Kernel ROC-AUC">
+            <img src="Results/SVM/linear_kernel_roc_auc.png" alt="Linear Kernel ROC-AUC">
         
             <p>I used only a subset of the data because the Polynomial Kernel is computationally expensive</p>
             <h4>Polynomial Kernel (degree = 3)</h4>
@@ -1706,7 +1707,7 @@
             <p>Model with C=100 is the best because it achieves the highest test accuracy and AUC. It also balances precision and recall really well. 
                 The classifier wildfire (class 1) cases more reliably than all other C values.</p>
             <img src="Results/SVM/poly_kernel_conf_matrix.png" alt="Poly Kernel Confusion Matrix">
-            <img src="Images/SVM/poly_kernel_roc_auc.png" alt="Poly Kernel ROC-AUC">
+            <img src="Results/SVM/poly_kernel_roc_auc.png" alt="Poly Kernel ROC-AUC">
             
 
             <h4>RBF Kernel</h4>
@@ -1847,7 +1848,7 @@
             </ul>
           
             <div class="image-container">
-              <img src="Images/ensemble_learning.jpg" alt="Ensemble Learning Summary Diagram">
+              <img src="images/ensemble_learning.png" alt="Ensemble Learning Summary Diagram">
               <p class="caption">Ensemble learning combines multiple models to achieve better generalization and predictive power.</p>
             </div>
           
@@ -1872,6 +1873,10 @@
               <img src="Results/Random Forest/x_train_after_transformation.png" alt="Test Dataset Preview">
               <p class="caption">Standardized training dataset after transformation.</p>
             </div>
+            <div class="image-container">
+                <img src="Results/Random Forest/x_test_after_transformation.png" alt="Test Dataset Preview">
+                <p class="caption">Standardized testing dataset after transformation.</p>
+              </div>
           
             <h3>Results & Evaluation</h3>
             <p>After training the baseline models, I used Optuna and Bayesian optimization to perform hyperparameter tuning. This was done to identify the best parameters that maximize model performance on the wildfire classification task.</p>
