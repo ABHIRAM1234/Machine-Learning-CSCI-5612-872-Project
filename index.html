@@ -1867,7 +1867,7 @@
           
             <div class="image-container">
               <img src="Results/Random Forest/x_train_before_transformation.png" alt="Train Dataset Preview">
-              <p class="caption">Standardized training dataset before transformation.</p>
+              <p class="caption">Training dataset before transformation.</p>
             </div>
             <div class="image-container">
               <img src="Results/Random Forest/x_train_after_transformation.png" alt="Test Dataset Preview">
@@ -1908,6 +1908,7 @@
             </div>
           
             <h4>XGBoost Classifier Comparison</h4>
+            <p>In XGBoost, I tuned max_depth, learning_rate, and n_estimators to reduce overfitting and boost recall</p>
             <table border="1" cellpadding="8" cellspacing="0">
               <thead>
                 <tr>
@@ -1951,8 +1952,8 @@
             </div>
           
             <h3>Non-Technical Summary</h3>
-            <p>Both Random Forest and XGBoost improved fire prediction accuracy over basic models. These ensemble models like expert teams that "vote" on whether a fire will occur by
-                combining multiple perspectives to make more reliable decisions. XGBoost performed the best with better accuracy and more confident predictions.</p>
+            <p>Both Random Forest and XGBoost improved fire prediction accuracy over basic models. These ensemble models work like expert teams that "vote" on whether a fire will 
+                occur by combining multiple perspectives to make more reliable decisions. XGBoost performed the best with better accuracy and more confident predictions.</p>
           
             <ul>
               <li><strong>Random Forest</strong> is simpler and easier to tune but still very powerful.</li>
@@ -1969,7 +1970,7 @@
             <p><strong>Which model worked best?</strong> XGBoost outperformed Random Forest in all key metrics including accuracy, recall, and AUC. It proved more effective in 
                 identifying complex relationships in wildfire data. Ensemble learning was clearly better than single classifiers and should be the preferred strategy for 
                 tasks with very high-stakes like fire detection.</p>
-          </div>
+        </div>
                   
         <div id="conclusion" class="tab-content">
 
